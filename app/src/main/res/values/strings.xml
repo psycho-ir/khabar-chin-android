@@ -1,4 +1,16 @@
 <resources>
-    <string name="app_name">Khabar Chin</string>
-    <string name="title_item_detail">Item Detail</string>
+    <string name="app_name">KhabarChin_prototype</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="toolbar_title">خبرچین</string>
+    <string name="drawer_home_title">صفحه اول</string>
+    <string name="drawer_news_title">اخبار</string>
+    <string name="drawer_favorite_title">اخبار دلخواه</string>
+    <string name="drawer_login_title">ورود به حساب کاربری</string>
+    <string name="drawer_about_title">درباره ما</string>
+    <string name="closeDrawer">Close</string>
+    <string name="openDrawer">Open</string>
+
+
 </resources>
