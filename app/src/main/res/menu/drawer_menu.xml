@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+
+    <group android:checkableBehavior="single">
+
+
+
+        <item
+            android:id="@+id/drawer_home"
+            android:checked="true"
+            android:icon="@mipmap/khabar_chin"
+            android:title="@string/drawer_home_title" />
+        <item
+            android:id="@+id/drawer_news"
+            android:icon="@mipmap/khabar_chin"
+            android:title="@string/drawer_news_title" />
+        <item
+            android:id="@+id/drawer_favorite"
+            android:icon="@mipmap/khabar_chin"
+            android:title="@string/drawer_favorite_title" />
+        <item
+            android:id="@+id/drawer_login"
+            android:icon="@mipmap/khabar_chin"
+            android:title="@string/drawer_login_title" />
+        <item
+            android:id="@+id/drawer_about"
+            android:icon="@mipmap/khabar_chin"
+            android:title="@string/drawer_about_title" />
+
+
+    </group>
+
+</menu>
