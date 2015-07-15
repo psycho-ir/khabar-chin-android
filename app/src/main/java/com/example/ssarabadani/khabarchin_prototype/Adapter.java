@@ -17,18 +17,18 @@ import java.util.ArrayList;
 public class Adapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     Context mContext;
-    ArrayList<DataModel> dataModels;
+    ArrayList<NewsCategory> dataModels;
 
     public static class newsViewHolder extends RecyclerView.ViewHolder {
 
         TextView cardText;
         ImageView cardImage;
-        CardView cv;
+//        CardView cv;
 
         public newsViewHolder(View view) {
             super(view);
 
-            cv = (CardView) view.findViewById(R.id.card_view);
+//            cv = (CardView) view.findViewById(R.id.card_view);
             cardImage = (ImageView) view.findViewById(R.id.image_card);
             cardText = (TextView) view.findViewById(R.id.text_card);
 
@@ -36,7 +36,7 @@ public class Adapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     }
 
-    public Adapter(Context context, ArrayList<DataModel> dataModels) {
+    public Adapter(Context context, ArrayList<NewsCategory> dataModels) {
 
         mContext = context;
         this.dataModels = dataModels;
@@ -59,7 +59,8 @@ public class Adapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
         newsViewHolder holder = (newsViewHolder) viewHolder;
         holder.cardText.setText(dataModels.get(position).title);
-        holder.cardImage.setImageResource(dataModels.get(position).image);
+        holder.cardImage.setImageResource(R.mipmap.khabar_chin);
+//        holder.cardImage.setImageResource(dataModels.get(position).image);
 
 
     }
