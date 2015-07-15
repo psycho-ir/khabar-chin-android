@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
                         fragmentManager.beginTransaction().replace(R.id.main_frame, mainFragment, "main").commit();
                         break;
                     case R.id.drawer_news:
-                        fragmentManager.beginTransaction().replace(R.id.main_frame, newsCategoryFragment, "main").commit();
+                        fragmentManager.beginTransaction().replace(R.id.main_frame, newsCategoryFragment, "news_category").commit();
                         break;
                     case R.id.drawer_favorite:
                         Toast.makeText(getApplicationContext(), "شما روی گزینه " + menuItem.getTitle().toString() + " کلیک کرده اید ", Toast.LENGTH_SHORT).show();

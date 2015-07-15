@@ -18,7 +18,6 @@ import java.util.ArrayList;
  */
 public class NewsCategoryFragment extends Fragment {
 
-    LinearLayoutManager llm = new GridLayoutManager(getActivity(),2,LinearLayoutManager.VERTICAL,false);
     private RecyclerView recyclerView;
     private ArrayList<DataModel> dataModels = new ArrayList<>();
 
@@ -35,14 +34,16 @@ public class NewsCategoryFragment extends Fragment {
 
         View view;
         view = inflater.inflate(R.layout.fragment_news_category, container, false);
+        LinearLayoutManager llm = new LinearLayoutManager(getActivity());
+
 
         recyclerView = (RecyclerView) view.findViewById(R.id.category_recycler);
-        recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(llm);
+        recyclerView.setHasFixedSize(true);
 
         for (int i = 0; i < 10; i++) {
 
-            dataModels.add(new DataModel(" ??? ????? "   +i, R.mipmap.khabar_chin));
+            dataModels.add(new DataModel(" ??? ????? " + i, R.mipmap.khabar_chin));
 
         }
 
