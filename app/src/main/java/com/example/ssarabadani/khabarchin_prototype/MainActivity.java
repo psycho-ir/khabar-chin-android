@@ -1,5 +1,6 @@
 package com.example.ssarabadani.khabarchin_prototype;
 
+import android.content.Context;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
@@ -14,7 +15,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.ssarabadani.khabarchin_prototype.client.Handler;
 import com.example.ssarabadani.khabarchin_prototype.client.LoginAPI;
+import com.example.ssarabadani.khabarchin_prototype.client.QueueInstance;
+import com.example.ssarabadani.khabarchin_prototype.dto.LoginData;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -24,13 +28,15 @@ public class MainActivity extends AppCompatActivity {
     private DrawerLayout mDrawerLayout;
     MainPageFragment mainFragment = new MainPageFragment();
     NewsCategoryFragment newsCategoryFragment = new NewsCategoryFragment();
+    LoginFragment loginFragment = new LoginFragment();
     FragmentManager fragmentManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        QueueInstance.prepare(this);
         setContentView(R.layout.activity_main);
-//        LoginAPI.instance.execute("");
+
 
         fragmentManager = getSupportFragmentManager();
 
@@ -60,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
                         fragmentManager.beginTransaction().replace(R.id.main_frame, newsCategoryFragment, "news_category").commit();
                         break;
                     case R.id.drawer_favorite:
+                        fragmentManager.beginTransaction().replace(R.id.main_frame, loginFragment, "news_category").commit();
                         Toast.makeText(getApplicationContext(), "شما روی گزینه " + menuItem.getTitle().toString() + " کلیک کرده اید ", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.drawer_login:
