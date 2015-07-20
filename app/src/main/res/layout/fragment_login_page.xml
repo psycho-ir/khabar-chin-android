@@ -18,15 +18,25 @@
             android:inputType="textEmailAddress"
             android:ems="10"
             android:id="@+id/txtEmail"
-            android:layout_weight="2" />
+            android:textColor="@color/text_black"
+            android:layout_weight="0.07" />
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPassword"
+            android:textColor="@color/text_black"
             android:ems="10"
             android:id="@+id/txtPass"
-            android:layout_weight="2" />
+            android:layout_weight="0.10" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/khabar_chin"
+            android:id="@+id/login_logo_view"
+            android:layout_weight="0.5"
+            />
 
         <Button
             android:layout_width="match_parent"
@@ -34,7 +44,7 @@
             android:text="Login"
             android:id="@+id/btnLogin"
             android:layout_gravity="center_horizontal"
-            android:layout_weight="1" />
+            android:layout_weight="0.34" />
 
     </LinearLayout>
 

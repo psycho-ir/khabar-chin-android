@@ -11,6 +11,7 @@
     <string name="drawer_about_title">درباره ما</string>
     <string name="closeDrawer">Close</string>
     <string name="openDrawer">Open</string>
+    <string name="login_email_sample">khabarchin.iran@email.com</string>
 
 
 </resources>
