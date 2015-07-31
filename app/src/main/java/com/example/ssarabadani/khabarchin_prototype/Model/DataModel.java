@@ -1,4 +1,4 @@
-package com.example.ssarabadani.khabarchin_prototype;
+package com.example.ssarabadani.khabarchin_prototype.Model;
 /**
  * Created by s.sarabadani on 7/14/2015.
  */

@@ -1,16 +1,16 @@
-package com.example.ssarabadani.khabarchin_prototype;
+package com.example.ssarabadani.khabarchin_prototype.Model;
 
 /**
  * Created by s.sarabadani on 7/15/2015.
  */
-public class NewsCategory {
+public class NewsCategoryModel {
 
-    String title;
-    String pk;
+    private String title;
+    private String pk;
     int categoryImage;
 
 
-    public NewsCategory(String pk, String title, int categoryImage) {
+    public NewsCategoryModel(String pk, String title, int categoryImage) {
 
         this.categoryImage = categoryImage;
         this.title = title;

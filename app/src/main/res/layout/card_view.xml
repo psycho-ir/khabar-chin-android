@@ -5,16 +5,16 @@
     android:padding="2dp"
     android:orientation="vertical">
 
-    <ImageView
+    <com.example.ssarabadani.khabarchin_prototype.widgets.ImageViewMeasureSquare
         android:id="@+id/image_card"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:alpha="0.5"
         android:background="@color/light_gray"/>
 
     <TextView
         android:id="@+id/text_card"
-        android:layout_width="200dp"
+        android:layout_width="match_parent"
         android:layout_height="50dp"
         android:gravity="center"
         android:layout_alignParentLeft="true"
