@@ -1,34 +1,15 @@
 package com.example.ssarabadani.khabarchin_prototype.client;
 
-import android.content.Context;
-import android.os.AsyncTask;
 import android.util.Log;
 
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
-import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
-import com.example.ssarabadani.khabarchin_prototype.NewsCategory;
-import com.example.ssarabadani.khabarchin_prototype.R;
 import com.example.ssarabadani.khabarchin_prototype.dto.LoginData;
 
-import org.apache.http.client.methods.HttpGet;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
-import java.net.CookieHandler;
-import java.net.CookieManager;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLConnection;
 import java.util.HashMap;
 import java.util.Map;
 

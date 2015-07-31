@@ -1,4 +1,4 @@
-package com.example.ssarabadani.khabarchin_prototype;
+package com.example.ssarabadani.khabarchin_prototype.Fragments;
 
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
@@ -8,10 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.RequestQueue;
+import com.example.ssarabadani.khabarchin_prototype.R;
 import com.example.ssarabadani.khabarchin_prototype.client.Handler;
 import com.example.ssarabadani.khabarchin_prototype.client.LoginAPI;
 import com.example.ssarabadani.khabarchin_prototype.dto.LoginData;

@@ -1,24 +1,21 @@
-package com.example.ssarabadani.khabarchin_prototype;
+package com.example.ssarabadani.khabarchin_prototype.Activity;
 
-import android.content.Context;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-import com.example.ssarabadani.khabarchin_prototype.client.Handler;
-import com.example.ssarabadani.khabarchin_prototype.client.LoginAPI;
+import com.example.ssarabadani.khabarchin_prototype.Fragments.LoginFragment;
+import com.example.ssarabadani.khabarchin_prototype.Fragments.MainPageFragment;
+import com.example.ssarabadani.khabarchin_prototype.Fragments.NewsCategoryFragment;
+import com.example.ssarabadani.khabarchin_prototype.R;
 import com.example.ssarabadani.khabarchin_prototype.client.QueueInstance;
-import com.example.ssarabadani.khabarchin_prototype.dto.LoginData;
 
 
 public class MainActivity extends AppCompatActivity {
