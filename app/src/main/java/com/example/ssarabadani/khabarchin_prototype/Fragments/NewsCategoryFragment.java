@@ -39,8 +39,7 @@ public class NewsCategoryFragment extends Fragment {
     private RecyclerView recyclerView;
     private ArrayList<NewsCategoryModel> newsCategory;
     private CategoryAdapter adapter;
-    private SubCategoryFragment det_fragment = new SubCategoryFragment();
-    private FragmentManager fragmentManager;
+
 
     private RequestQueue queue;
 
@@ -58,9 +57,9 @@ public class NewsCategoryFragment extends Fragment {
         View view;
         view = inflater.inflate(R.layout.fragment_news_category, container, false);
         LinearLayoutManager llm = new GridLayoutManager(getActivity(), 2, LinearLayoutManager.VERTICAL, false);
-
+        final FragmentManager fragmentManager;
         fragmentManager = getFragmentManager();
-
+        final SubCategoryFragment det_fragment = new SubCategoryFragment();
 
         recyclerView = (RecyclerView) view.findViewById(R.id.category_recycler);
         recyclerView.setLayoutManager(llm);

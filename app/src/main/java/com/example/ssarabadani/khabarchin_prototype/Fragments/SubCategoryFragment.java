@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +26,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -36,6 +38,17 @@ public class SubCategoryFragment extends Fragment {
     private RecyclerView recyclerView;
     private LinearLayoutManager llm;
     private SubCategoryAdapter subCategoryAdapter;
+    private int param;
+    private int currentPage;
+
+
+
+
+    private int previousTotal = 0;
+    private boolean loading = true;
+    private int visibleThreshold = 5;
+    int firstVisibleItem, visibleItemCount, totalItemCount;
+
 
     public SubCategoryFragment() {
         // Required empty public constructor
@@ -46,43 +59,91 @@ public class SubCategoryFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_sub_category, container, false);
+        final View v = inflater.inflate(R.layout.fragment_sub_category, container, false);
         subModels = new ArrayList<>();
 
         Bundle bundle = this.getArguments();
-        String categoryName = bundle.getString("category");
+        final String categoryName = bundle.getString("category");
 
         recyclerView = (RecyclerView) v.findViewById(R.id.sub_category_fragment_recycler);
         llm = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(llm);
         subCategoryAdapter = new SubCategoryAdapter(getActivity(), subModels);
+        param = 5;
+        currentPage = 1;
 
-
-        RequestQueue queue = Volley.newRequestQueue(getActivity());
-        String Url = "http://khabar-chin.com/rest/important/?categories="+categoryName+"&size=6";
-
-
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, Url, new Response.Listener<JSONArray>() {
-
+        recyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+            }
 
             @Override
-            public void onResponse(JSONArray response) {
-                for (int i = 0; i < response.length(); i++) {
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
 
-                    try {
-                        JSONObject jsonObject = response.getJSONObject(i);
-                        subModels.add(new SubModel(jsonObject.getString("title"), jsonObject.getString("agency"), jsonObject.getString("abstract"), jsonObject.getInt("likes"),
-                                jsonObject.getString("img_address"), R.mipmap.khabar_chin));
-                    } catch (JSONException e) {
+                visibleItemCount = recyclerView.getChildCount();
+                totalItemCount = llm.getItemCount();
+                firstVisibleItem = llm.findFirstVisibleItemPosition();
 
-                        e.printStackTrace();
-
+                if (loading) {
+                    if (totalItemCount > previousTotal) {
+                        loading = false;
+                        previousTotal = totalItemCount;
                     }
-                    subCategoryAdapter.notifyDataSetChanged();
+                }
+                if (!loading && (totalItemCount - visibleItemCount) <= (firstVisibleItem + visibleThreshold)) {
+                    // End has been reached
 
+                    currentPage++;
+                    // Do something
+                    volleyRequestMaker(categoryName,currentPage, param);
+                    subCategoryAdapter.notifyDataSetChanged();
+                    Log.i("woooooooooooooow", String.valueOf(param)+" items added");
+                    loading = true;
                 }
             }
-        },
+
+        });
+
+        volleyRequestMaker(categoryName,currentPage, param);
+
+
+        recyclerView.setAdapter(subCategoryAdapter);
+
+
+        return v;
+    }
+
+
+    private ArrayList<SubModel> volleyRequestMaker(String categoryName,int currentPage, int size) {
+
+        RequestQueue queue = Volley.newRequestQueue(getActivity());
+        String Url = "http://khabar-chin.com/rest/important/?categories=" + categoryName + "&page_number="+ String.valueOf(currentPage) + "&size=" + String.valueOf(size);
+
+
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, Url,
+
+                new Response.Listener<JSONArray>() {
+
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        for (int i = 0; i < response.length(); i++) {
+
+                            try {
+                                JSONObject jsonObject = response.getJSONObject(i);
+                                subModels.add(new SubModel(jsonObject.getString("title"), jsonObject.getString("agency"), jsonObject.getString("abstract"), jsonObject.getInt("likes"),
+                                        jsonObject.getString("img_address"), R.mipmap.khabar_chin));
+                            } catch (JSONException e) {
+
+                                e.printStackTrace();
+
+                            }
+                            subCategoryAdapter.notifyDataSetChanged();
+
+                        }
+                    }
+                },
 
                 new Response.ErrorListener() {
                     @Override
@@ -92,10 +153,9 @@ public class SubCategoryFragment extends Fragment {
 
                 });
         queue.add(jsonArrayRequest);
-        recyclerView.setAdapter(subCategoryAdapter);
 
+        return subModels;
 
-        return v;
     }
 
 
