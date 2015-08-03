@@ -1,5 +1,5 @@
 package com.example.ssarabadani.khabarchin_prototype.widgets;
-
+//
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.os.Build;

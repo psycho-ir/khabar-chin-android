@@ -28,5 +28,5 @@ public class CardViewMeasureSquare extends CardView {
         setMeasuredDimension(getMeasuredWidth(), getMeasuredWidth());
     }
 
-
+//
 }
