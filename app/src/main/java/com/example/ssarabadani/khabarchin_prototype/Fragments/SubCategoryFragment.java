@@ -2,6 +2,7 @@ package com.example.ssarabadani.khabarchin_prototype.Fragments;
 
 
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -9,6 +10,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -30,7 +33,7 @@ import java.util.List;
 
 
 /**
- * A simple {@link Fragment} subclass.
+ * CREATED BY SAJAD
  */
 public class SubCategoryFragment extends Fragment {
 
@@ -40,6 +43,7 @@ public class SubCategoryFragment extends Fragment {
     private SubCategoryAdapter subCategoryAdapter;
     private int param;
     private int currentPage;
+
 
 
 
@@ -62,6 +66,8 @@ public class SubCategoryFragment extends Fragment {
         final View v = inflater.inflate(R.layout.fragment_sub_category, container, false);
         subModels = new ArrayList<>();
 
+        final ProgressBar progressBar = (ProgressBar) v.findViewById(R.id.progressBar);
+        final RelativeLayout relativeLayout = (RelativeLayout) v.findViewById(R.id.progress_back_layout);
         Bundle bundle = this.getArguments();
         final String categoryName = bundle.getString("category");
 
@@ -69,8 +75,12 @@ public class SubCategoryFragment extends Fragment {
         llm = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(llm);
         subCategoryAdapter = new SubCategoryAdapter(getActivity(), subModels);
+
+
         param = 5;
         currentPage = 1;
+
+
 
         recyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -86,21 +96,28 @@ public class SubCategoryFragment extends Fragment {
                 totalItemCount = llm.getItemCount();
                 firstVisibleItem = llm.findFirstVisibleItemPosition();
 
+                progressBar.setVisibility(View.GONE);
+                relativeLayout.setVisibility(View.GONE);
                 if (loading) {
                     if (totalItemCount > previousTotal) {
                         loading = false;
                         previousTotal = totalItemCount;
+
                     }
                 }
                 if (!loading && (totalItemCount - visibleItemCount) <= (firstVisibleItem + visibleThreshold)) {
                     // End has been reached
+                    progressBar.setVisibility(View.VISIBLE);
+                    relativeLayout.setVisibility(View.VISIBLE);
+
 
                     currentPage++;
                     // Do something
-                    volleyRequestMaker(categoryName,currentPage, param);
+                    volleyRequestMaker(categoryName, currentPage, param);
                     subCategoryAdapter.notifyDataSetChanged();
-                    Log.i("woooooooooooooow", String.valueOf(param)+" items added");
+                    Log.i("woooooooooooooow", String.valueOf(param) + " items added");
                     loading = true;
+
                 }
             }
 
