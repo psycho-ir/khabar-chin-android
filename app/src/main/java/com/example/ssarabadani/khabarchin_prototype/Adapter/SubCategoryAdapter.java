@@ -69,7 +69,11 @@ public class SubCategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
         subCategoryViewHolder holder = (subCategoryViewHolder) viewHolder;
 
-        holder.likeCounter.setText(String.valueOf(subModel.get(position).getLike_counter()));
+        if(subModel.get(position).getLike_counter() > 1000) {
+            holder.likeCounter.setText(String.valueOf(subModel.get(position).getLike_counter() % 1000)+"+k");
+        }else{
+            holder.likeCounter.setText(String.valueOf(subModel.get(position).getLike_counter()));
+        }
         holder.agency_logo.setImageResource(R.mipmap.khabar_chin);
         holder.agency_name.setText(subModel.get(position).getAgency_name());
         holder.sub_abstract.setText(subModel.get(position).getNews_abstract());
