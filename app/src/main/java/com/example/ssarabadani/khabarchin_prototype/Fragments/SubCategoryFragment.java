@@ -66,8 +66,8 @@ public class SubCategoryFragment extends Fragment {
         final View v = inflater.inflate(R.layout.fragment_sub_category, container, false);
         subModels = new ArrayList<>();
 
-        final ProgressBar progressBar = (ProgressBar) v.findViewById(R.id.progressBar);
-        final RelativeLayout relativeLayout = (RelativeLayout) v.findViewById(R.id.progress_back_layout);
+//        final ProgressBar progressBar = (ProgressBar) v.findViewById(R.id.progressBar);
+//        final RelativeLayout relativeLayout = (RelativeLayout) v.findViewById(R.id.progress_back_layout);
         Bundle bundle = this.getArguments();
         final String categoryName = bundle.getString("category");
 
@@ -96,8 +96,8 @@ public class SubCategoryFragment extends Fragment {
                 totalItemCount = llm.getItemCount();
                 firstVisibleItem = llm.findFirstVisibleItemPosition();
 
-                progressBar.setVisibility(View.GONE);
-                relativeLayout.setVisibility(View.GONE);
+//                progressBar.setVisibility(View.GONE);
+//                relativeLayout.setVisibility(View.GONE);
                 if (loading) {
                     if (totalItemCount > previousTotal) {
                         loading = false;
@@ -107,8 +107,8 @@ public class SubCategoryFragment extends Fragment {
                 }
                 if (!loading && (totalItemCount - visibleItemCount) <= (firstVisibleItem + visibleThreshold)) {
                     // End has been reached
-                    progressBar.setVisibility(View.VISIBLE);
-                    relativeLayout.setVisibility(View.VISIBLE);
+//                    progressBar.setVisibility(View.VISIBLE);
+//                    relativeLayout.setVisibility(View.VISIBLE);
 
 
                     currentPage++;
