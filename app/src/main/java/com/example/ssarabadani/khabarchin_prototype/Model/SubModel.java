@@ -11,12 +11,14 @@ public class SubModel {
     int like_counter;
     String news_img_address;
     int agency_logo;
+    String date;
 
     public SubModel() {
     }
 
-    public SubModel(String sub_title, String agency_name, String news_abstract, int like_counter, String news_img_address, int agency_logo) {
+    public SubModel(String sub_title, String agency_name, String news_abstract, int like_counter, String news_img_address, int agency_logo,String date) {
 
+        this.date = date;
         this.agency_logo = agency_logo;
         this.agency_name = agency_name;
         this.like_counter = like_counter;
@@ -24,6 +26,14 @@ public class SubModel {
         this.news_img_address = news_img_address;
         this.sub_title = sub_title;
 
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 
     public String getSub_title() {

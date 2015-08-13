@@ -150,7 +150,7 @@ public class SubCategoryFragment extends Fragment {
                             try {
                                 JSONObject jsonObject = response.getJSONObject(i);
                                 subModels.add(new SubModel(jsonObject.getString("title"), jsonObject.getString("agency"), jsonObject.getString("abstract"), jsonObject.getInt("likes"),
-                                        jsonObject.getString("img_address"), R.mipmap.khabar_chin));
+                                        jsonObject.getString("img_address"), R.mipmap.khabar_chin, jsonObject.getString("date")));
                             } catch (JSONException e) {
 
                                 e.printStackTrace();

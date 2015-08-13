@@ -17,6 +17,8 @@ import com.example.ssarabadani.khabarchin_prototype.Model.SubModel;
 import com.example.ssarabadani.khabarchin_prototype.R;
 import com.squareup.picasso.Picasso;
 
+import org.w3c.dom.Text;
+
 import java.awt.font.TextAttribute;
 import java.io.InputStream;
 import java.net.ContentHandler;
@@ -44,6 +46,7 @@ public class SubCategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         TextView likeCounter;
         RelativeLayout card_wrapper;
         TextView sub_cat;
+        TextView date_view;
 
         public subCategoryViewHolder(View view) {
             super(view);
@@ -56,6 +59,7 @@ public class SubCategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             agency_logo = (ImageView) view.findViewById(R.id.agency_logo);
             agency_name = (TextView) view.findViewById(R.id.agency_name);
             likeCounter = (TextView) view.findViewById(R.id.like_counter);
+            date_view = (TextView) view.findViewById(R.id.date_view);
 
         }
     }
@@ -125,6 +129,7 @@ public class SubCategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         holder.sub_abstract.setText(subModel.get(position).getNews_abstract());
         holder.sub_title.setText(subModel.get(position).getSub_title());
         Picasso.with(mContext).load(subModel.get(position).getNews_img_address()).into(holder.news_image);
+        holder.date_view.setText(subModel.get(position).getDate());
 
 
     }
