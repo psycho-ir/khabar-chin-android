@@ -1,10 +1,14 @@
 package com.example.ssarabadani.khabarchin_prototype.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.support.v7.graphics.Palette;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,8 +37,10 @@ public class SubCategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     Context mContext;
     ArrayList<SubModel> subModel;
-    URL url;
-    Bitmap image;
+    Integer[] titleBackGround = new Integer[1000];
+
+
+    int[] a;
 
     public static class subCategoryViewHolder extends RecyclerView.ViewHolder {
 
@@ -44,15 +50,15 @@ public class SubCategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         ImageView agency_logo;
         TextView agency_name;
         TextView likeCounter;
-        RelativeLayout card_wrapper;
+        CardView sub_image;
         TextView sub_cat;
         TextView date_view;
 
         public subCategoryViewHolder(View view) {
             super(view);
 
-            sub_cat = (TextView)view.findViewById(R.id.sub_cat_agency_title);
-            card_wrapper = (RelativeLayout)view.findViewById(R.id.card_wrapper);
+            sub_cat = (TextView) view.findViewById(R.id.sub_cat_agency_title);
+            sub_image = (CardView) view.findViewById(R.id.relativeLayout);
             sub_title = (TextView) view.findViewById(R.id.sub_news_title);
             sub_abstract = (TextView) view.findViewById(R.id.sub_cat_abstract_text_view);
             news_image = (ImageView) view.findViewById(R.id.news_image);
@@ -65,10 +71,14 @@ public class SubCategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     }
 
 
-    public SubCategoryAdapter(Context context, ArrayList<SubModel> subModel) {
+    public SubCategoryAdapter(Context context, ArrayList<SubModel> subModel, Integer[] titleBackGround) {
 
         mContext = context;
         this.subModel = subModel;
+
+
+        a = new int[getItemCount()];
+
     }
 
 
@@ -79,61 +89,91 @@ public class SubCategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         v = LayoutInflater.from(parent.getContext()).inflate(R.layout.sub_category_card_view, parent, false);
         subCategoryViewHolder NVH = new subCategoryViewHolder(v);
         return NVH;
+
+
+
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, final int position) {
 
         final subCategoryViewHolder holder = (subCategoryViewHolder) viewHolder;
 
+        String url = subModel.get(position).getNews_img_address();
+        holder.itemView.setTag(position);
 
-
-
-//============================================================================================
-        try {
-            URL url = new URL(subModel.get(position).getNews_img_address());
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.setDoInput(true);
-            connection.connect();
-            InputStream input = connection.getInputStream();
-            image = BitmapFactory.decodeStream(input);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        Palette.PaletteAsyncListener listener = new Palette.PaletteAsyncListener() {
-            @Override
-            public void onGenerated(Palette palette) {
-                palette.generate(image);
-                holder.sub_title.setBackgroundColor(palette.getMutedColor(R.color.accent_material_dark));
-                holder.sub_title.setAlpha(0.8f);
-                holder.card_wrapper.setBackgroundColor(palette.getDarkMutedColor(R.color.accent_material_dark));
-                holder.agency_name.setTextColor(palette.getMutedColor(R.color.white));
-                holder.sub_cat.setTextColor(palette.getMutedColor(R.color.white));
-            }
-        };
-        if(image != null)
-        listener.onGenerated(Palette.generate(image));
-    image = null;
-        //=========================================================
-
-
-        if(subModel.get(position).getLike_counter() > 1000) {
-            holder.likeCounter.setText(String.valueOf(subModel.get(position).getLike_counter() % 1000)+"+k");
-        }else{
+        if (subModel.get(position).getLike_counter() > 1000) {
+            holder.likeCounter.setText(String.valueOf(subModel.get(position).getLike_counter() % 1000) + "+k");
+        } else {
             holder.likeCounter.setText(String.valueOf(subModel.get(position).getLike_counter()));
         }
+
+        Picasso.with(mContext)
+                .load(subModel.get(position).getNews_img_address())
+                .into(holder.news_image);
         holder.agency_logo.setImageResource(R.mipmap.khabar_chin);
         holder.agency_name.setText(subModel.get(position).getAgency_name());
         holder.sub_abstract.setText(subModel.get(position).getNews_abstract());
         holder.sub_title.setText(subModel.get(position).getSub_title());
-        Picasso.with(mContext).load(subModel.get(position).getNews_img_address()).into(holder.news_image);
         holder.date_view.setText(subModel.get(position).getDate());
 
+//============================================================================================
+        AsyncTask<String, Void, Bitmap> asyncTask = new AsyncTask<String, Void, Bitmap>() {
 
+            Bitmap image;
+
+            @Override
+            protected Bitmap doInBackground(String... strings) {
+                try {
+                    URL url = new URL(strings[0]);
+                    HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                    connection.setDoInput(true);
+                    connection.connect();
+                    InputStream input = connection.getInputStream();
+                    image = BitmapFactory.decodeStream(input);
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                return image;
+            }
+
+            @Override
+            protected void onPostExecute(final Bitmap result) {
+//                if (result != null) {
+//                    Palette palette = Palette.generate(result);
+
+                if(titleBackGround[position] != null){
+                    holder.sub_title.setBackgroundColor(titleBackGround[position]);
+                } else {
+                    Palette.PaletteAsyncListener listener = new Palette.PaletteAsyncListener() {
+                        @Override
+                        public void onGenerated(Palette palette) {
+                            palette.generate(result);
+                            int temp = palette.getLightMutedColor(R.color.accent_material_dark);
+                            titleBackGround[position] = (temp);
+                            holder.sub_title.setBackgroundColor(titleBackGround[position]);
+
+                            if(((int) holder.itemView.getTag()) == position){
+
+                                holder.sub_title.setBackgroundColor(titleBackGround[position]);
+
+                            }
+                        }
+                    };
+
+                    if (result != null) {
+                        listener.onGenerated(Palette.generate(result));
+                    }
+                }
+            }
+        };
+
+        asyncTask.execute(url);
+
+        //=========================================================
     }
-
 
 
     @Override
@@ -141,5 +181,11 @@ public class SubCategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         return subModel.size();
     }
 }
+
+
+
+
+
+
 
 

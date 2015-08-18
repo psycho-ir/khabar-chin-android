@@ -3,13 +3,19 @@ package com.example.ssarabadani.khabarchin_prototype.Fragments;
 
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.transition.Fade;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.ScaleAnimation;
+import android.view.animation.TranslateAnimation;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
@@ -43,16 +49,15 @@ public class SubCategoryFragment extends Fragment {
     private SubCategoryAdapter subCategoryAdapter;
     private int param;
     private int currentPage;
-
-
-
-
+    private Integer[] titleBackGround = new Integer[1000];
+    private FloatingActionButton FAB;
 
     private int previousTotal = 0;
     private boolean loading = true;
     private int visibleThreshold = 5;
-    int firstVisibleItem, visibleItemCount, totalItemCount;
+    int firstVisibleItem, visibleItemCount, totalItemCount, lastItemVisible, heightCounter = 0;
 
+    boolean state = true;
 
     public SubCategoryFragment() {
         // Required empty public constructor
@@ -61,7 +66,7 @@ public class SubCategoryFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+                             final Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         final View v = inflater.inflate(R.layout.fragment_sub_category, container, false);
         subModels = new ArrayList<>();
@@ -70,16 +75,30 @@ public class SubCategoryFragment extends Fragment {
 //        final RelativeLayout relativeLayout = (RelativeLayout) v.findViewById(R.id.progress_back_layout);
         Bundle bundle = this.getArguments();
         final String categoryName = bundle.getString("category");
-
         recyclerView = (RecyclerView) v.findViewById(R.id.sub_category_fragment_recycler);
         llm = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(llm);
-        subCategoryAdapter = new SubCategoryAdapter(getActivity(), subModels);
+        subCategoryAdapter = new SubCategoryAdapter(getActivity(), subModels, titleBackGround);
+
+
+        recyclerView.setAdapter(subCategoryAdapter);
+        FAB = (FloatingActionButton) v.findViewById(R.id.fab);
+        FAB.setScaleX(0);
+        FAB.setScaleY(0);
+        FAB.setVisibility(View.GONE);
+
+        FAB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                llm.smoothScrollToPosition(recyclerView, null, 0);
+
+            }
+        });
 
 
         param = 5;
         currentPage = 1;
-
 
 
         recyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -88,13 +107,38 @@ public class SubCategoryFragment extends Fragment {
                 super.onScrollStateChanged(recyclerView, newState);
             }
 
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
 
+            @Override
+            public void onScrolled(final RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
                 visibleItemCount = recyclerView.getChildCount();
                 totalItemCount = llm.getItemCount();
                 firstVisibleItem = llm.findFirstVisibleItemPosition();
+                lastItemVisible = llm.findLastVisibleItemPosition();
+                heightCounter += dy;
+                state = true;
+
+                if (heightCounter <= 909) {
+                    FAB.setVisibility(View.GONE);
+                    FAB.setScaleX(0);
+                    FAB.setScaleY(0);
+
+
+                } else if (heightCounter < 1000 && heightCounter > 909) {
+                    FAB.setVisibility(View.VISIBLE);
+                    String value = "0." + "" + heightCounter % 900;
+                    Log.i("value", value);
+                    FAB.setScaleX(Float.valueOf(value));
+                    FAB.setScaleY(Float.valueOf(value));
+                    value = "";
+                } else {
+                    FAB.setVisibility(View.VISIBLE);
+                    FAB.setScaleX(1);
+                    FAB.setScaleY(1);
+
+                }
+
+                Log.i("woooooooooooooow", String.valueOf(dy) + " items added");
 
 //                progressBar.setVisibility(View.GONE);
 //                relativeLayout.setVisibility(View.GONE);
@@ -115,7 +159,6 @@ public class SubCategoryFragment extends Fragment {
                     // Do something
                     volleyRequestMaker(categoryName, currentPage, param);
                     subCategoryAdapter.notifyDataSetChanged();
-                    Log.i("woooooooooooooow", String.valueOf(param) + " items added");
                     loading = true;
 
                 }
@@ -123,20 +166,17 @@ public class SubCategoryFragment extends Fragment {
 
         });
 
-        volleyRequestMaker(categoryName,currentPage, param);
-
-
-        recyclerView.setAdapter(subCategoryAdapter);
+        volleyRequestMaker(categoryName, currentPage, param);
 
 
         return v;
     }
 
 
-    private ArrayList<SubModel> volleyRequestMaker(String categoryName,int currentPage, int size) {
+    private ArrayList<SubModel> volleyRequestMaker(String categoryName, int currentPage, int size) {
 
         RequestQueue queue = Volley.newRequestQueue(getActivity());
-        String Url = "http://khabar-chin.com/rest/important/?categories=" + categoryName + "&page_number="+ String.valueOf(currentPage) + "&size=" + String.valueOf(size);
+        String Url = "http://khabar-chin.com/rest/important/?categories=" + categoryName + "&page_number=" + String.valueOf(currentPage) + "&size=" + String.valueOf(size);
 
 
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, Url,

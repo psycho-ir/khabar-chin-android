@@ -1,5 +1,6 @@
 package com.example.ssarabadani.khabarchin_prototype.Activity;
 
+import android.os.Build;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
@@ -9,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.Toast;
 
 import com.example.ssarabadani.khabarchin_prototype.Fragments.LoginFragment;
@@ -37,7 +39,12 @@ public class MainActivity extends AppCompatActivity {
 
         fragmentManager = getSupportFragmentManager();
 
+        Window window = this.getWindow();
+        if(Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT){
 
+            window.setStatusBarColor(getResources().getColor(R.color.white));
+
+        }
         mNavigationView = (NavigationView) findViewById(R.id.navigation_view);
 
         toolbar = (Toolbar) findViewById(R.id.app_toolbar);
