@@ -147,7 +147,7 @@
 
                 <ImageView
                     android:id="@+id/news_image"
-                    android:layout_width="200dp"
+                    android:layout_width="match_parent"
                     android:layout_height="200dp"
                     android:scaleType="fitXY"
                     android:layout_margin="5dp"
@@ -174,6 +174,15 @@
                     android:layout_alignParentStart="true"
                     android:layout_alignParentRight="true"
                     android:layout_alignParentEnd="true" />
+
+                <ImageView
+                    android:id="@+id/plus_sign"
+                    android:layout_width="200dp"
+                    android:layout_height="200dp"
+                    android:background="@mipmap/plus_sign"
+                    android:layout_marginTop="0dp"
+                    android:layout_marginLeft="50dp"
+                    />
 
 
             </RelativeLayout>
@@ -266,7 +275,7 @@
                 android:paddingRight="5dp"
                 android:textColor="@color/gray_dark"
                 android:layout_height="wrap_content"
-                android:text="در این سفر هیئت آلمانی ضمن تاکید بر همکاری های سیاسی و اقتصادی بر نقش سازنده لیران در امنیت منطقه خاورمیانه تاکید به سزایی داشته و خواستار همکاری های بیشتر شدند......"
+                android:text="در این سفر هیئت آلمانی ضمن تاکید بر همکاری های سیاسی و اقتصادی بر نقش سازنده ایران در امنیت منطقه خاورمیانه تاکید به سزایی داشته و خواستار همکاری های بیشتر شدند......"
                 android:layout_below="@+id/divider_view" />
 
 

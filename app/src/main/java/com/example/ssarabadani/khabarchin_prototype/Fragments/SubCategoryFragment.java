@@ -2,22 +2,14 @@ package com.example.ssarabadani.khabarchin_prototype.Fragments;
 
 
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.transition.Fade;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AlphaAnimation;
-import android.view.animation.ScaleAnimation;
-import android.view.animation.TranslateAnimation;
-import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -26,7 +18,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.ssarabadani.khabarchin_prototype.Adapter.SubCategoryAdapter;
-import com.example.ssarabadani.khabarchin_prototype.Model.NewsCategoryModel;
 import com.example.ssarabadani.khabarchin_prototype.Model.SubModel;
 import com.example.ssarabadani.khabarchin_prototype.R;
 
@@ -35,7 +26,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.List;
 
 
 /**
@@ -71,8 +61,6 @@ public class SubCategoryFragment extends Fragment {
         final View v = inflater.inflate(R.layout.fragment_sub_category, container, false);
         subModels = new ArrayList<>();
 
-//        final ProgressBar progressBar = (ProgressBar) v.findViewById(R.id.progressBar);
-//        final RelativeLayout relativeLayout = (RelativeLayout) v.findViewById(R.id.progress_back_layout);
         Bundle bundle = this.getArguments();
         final String categoryName = bundle.getString("category");
         recyclerView = (RecyclerView) v.findViewById(R.id.sub_category_fragment_recycler);
@@ -100,6 +88,7 @@ public class SubCategoryFragment extends Fragment {
         param = 5;
         currentPage = 1;
 
+        
 
         recyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -130,7 +119,6 @@ public class SubCategoryFragment extends Fragment {
                     Log.i("value", value);
                     FAB.setScaleX(Float.valueOf(value));
                     FAB.setScaleY(Float.valueOf(value));
-                    value = "";
                 } else {
                     FAB.setVisibility(View.VISIBLE);
                     FAB.setScaleX(1);
@@ -140,8 +128,6 @@ public class SubCategoryFragment extends Fragment {
 
                 Log.i("woooooooooooooow", String.valueOf(dy) + " items added");
 
-//                progressBar.setVisibility(View.GONE);
-//                relativeLayout.setVisibility(View.GONE);
                 if (loading) {
                     if (totalItemCount > previousTotal) {
                         loading = false;
@@ -151,9 +137,6 @@ public class SubCategoryFragment extends Fragment {
                 }
                 if (!loading && (totalItemCount - visibleItemCount) <= (firstVisibleItem + visibleThreshold)) {
                     // End has been reached
-//                    progressBar.setVisibility(View.VISIBLE);
-//                    relativeLayout.setVisibility(View.VISIBLE);
-
 
                     currentPage++;
                     // Do something

@@ -16,6 +16,8 @@
 <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="khabar_chin_title">خبرچین</string>
+    <string name="registerText">همین حالا عضو خبر چین شوید</string>
+    <string name="loginText">ورود به حساب خبرچینی</string>
 
 
 </resources>

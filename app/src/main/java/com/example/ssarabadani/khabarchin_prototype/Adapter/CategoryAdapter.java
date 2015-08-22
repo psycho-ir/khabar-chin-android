@@ -25,25 +25,25 @@ public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
         TextView cardText;
         ImageView cardImage;
-//        CardView cv;
 
         public newsViewHolder(View view) {
             super(view);
 
-//            cv = (CardView) view.findViewById(R.id.card_view);
             cardImage = (ImageView) view.findViewById(R.id.image_card);
             cardText = (TextView) view.findViewById(R.id.text_card);
 
-//            view.setOnClickListener(this);
 
         }
 
-//        @Override
-//        public void onClick(View view) {
-//
-//            Toast.makeText(view.getContext(), "this item was clicked " + view.getId() , Toast.LENGTH_SHORT).show();
-//
-//        }
+    }
+
+
+    public static class newsViewHolderBanner extends RecyclerView.ViewHolder {
+
+
+        public newsViewHolderBanner(View itemView) {
+            super(itemView);
+        }
     }
 
 
