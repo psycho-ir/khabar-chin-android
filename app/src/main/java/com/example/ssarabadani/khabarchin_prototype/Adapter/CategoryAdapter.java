@@ -69,7 +69,51 @@ public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
         newsViewHolder holder = (newsViewHolder) viewHolder;
         holder.cardText.setText(dataModels.get(position).getTitle());
-        holder.cardImage.setImageResource(R.mipmap.khabar_chin);
+        int pos = R.mipmap.khabar_chin;
+        switch(position){
+
+            case 0:
+                pos = R.mipmap.news_1;
+                break;
+            case 1:
+                pos = R.mipmap.news_2;
+                break;
+            case 2:
+                pos = R.mipmap.news_3;
+                break;
+            case 3:
+                pos = R.mipmap.news_4;
+                break;
+            case 4:
+                pos = R.mipmap.news_5;
+                break;
+            case 5:
+                pos = R.mipmap.news_6;
+                break;
+            case 6:
+                pos = R.mipmap.news_7;
+                break;
+            case 7:
+                pos = R.mipmap.news_8;
+                break;
+            case 8:
+                pos = R.mipmap.news_9;
+                break;
+            case 9:
+                pos = R.mipmap.news_10;
+                break;
+            case 10:
+                pos = R.mipmap.news_11;
+                break;
+            case 11:
+                pos = R.mipmap.news_12;
+                break;
+            case 12:
+                pos = R.mipmap.news_13;
+                break;
+
+        }
+        holder.cardImage.setImageResource(pos);
 //        holder.cardImage.setImageResource(dataModels.get(position).image);
 
 

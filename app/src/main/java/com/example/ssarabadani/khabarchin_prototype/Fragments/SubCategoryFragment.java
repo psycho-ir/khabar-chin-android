@@ -4,12 +4,15 @@ package com.example.ssarabadani.khabarchin_prototype.Fragments;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.TranslateAnimation;
+import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -39,7 +42,6 @@ public class SubCategoryFragment extends Fragment {
     private SubCategoryAdapter subCategoryAdapter;
     private int param;
     private int currentPage;
-    private Integer[] titleBackGround = new Integer[1000];
     private FloatingActionButton FAB;
 
     private int previousTotal = 0;
@@ -66,10 +68,11 @@ public class SubCategoryFragment extends Fragment {
         recyclerView = (RecyclerView) v.findViewById(R.id.sub_category_fragment_recycler);
         llm = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(llm);
-        subCategoryAdapter = new SubCategoryAdapter(getActivity(), subModels, titleBackGround);
-
+        subCategoryAdapter = new SubCategoryAdapter(getActivity(), subModels, bundle.getString("cat_name"));
 
         recyclerView.setAdapter(subCategoryAdapter);
+
+
         FAB = (FloatingActionButton) v.findViewById(R.id.fab);
         FAB.setScaleX(0);
         FAB.setScaleY(0);
@@ -88,22 +91,40 @@ public class SubCategoryFragment extends Fragment {
         param = 5;
         currentPage = 1;
 
-        
 
         recyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
+
             }
 
 
             @Override
-            public void onScrolled(final RecyclerView recyclerView, int dx, int dy) {
+            public void onScrolled(final RecyclerView recyclerView, int dx, final int dy) {
                 super.onScrolled(recyclerView, dx, dy);
                 visibleItemCount = recyclerView.getChildCount();
                 totalItemCount = llm.getItemCount();
                 firstVisibleItem = llm.findFirstVisibleItemPosition();
                 lastItemVisible = llm.findLastVisibleItemPosition();
+                llm.setSmoothScrollbarEnabled(true);
+                Log.i("woooooooooooooow", String.valueOf(dy) + " items added");
+
+
+                subCategoryAdapter.setOnScrollListner(new SubCategoryAdapter.onScrollListener() {
+                    @Override
+                    public boolean fastScrolled() {
+                        if (dy < 90 && dy > 0) {
+
+                            return true;
+                        } else {
+
+                            return false;
+
+                        }
+                    }
+                });
+
                 heightCounter += dy;
                 state = true;
 
@@ -126,7 +147,6 @@ public class SubCategoryFragment extends Fragment {
 
                 }
 
-                Log.i("woooooooooooooow", String.valueOf(dy) + " items added");
 
                 if (loading) {
                     if (totalItemCount > previousTotal) {
@@ -200,3 +220,6 @@ public class SubCategoryFragment extends Fragment {
 
 
 }
+
+
+

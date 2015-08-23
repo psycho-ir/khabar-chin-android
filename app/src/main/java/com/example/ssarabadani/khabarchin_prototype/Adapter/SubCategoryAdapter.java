@@ -1,13 +1,12 @@
 package com.example.ssarabadani.khabarchin_prototype.Adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.media.Image;
 import android.os.AsyncTask;
 import android.support.v7.graphics.Palette;
 import android.support.v7.widget.CardView;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.GestureDetector;
@@ -16,21 +15,17 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
+import android.view.animation.AnimationSet;
+import android.view.animation.ScaleAnimation;
+import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.ssarabadani.khabarchin_prototype.Model.SubModel;
 import com.example.ssarabadani.khabarchin_prototype.R;
 import com.squareup.picasso.Picasso;
 
-import org.w3c.dom.Text;
-
-import java.awt.font.TextAttribute;
 import java.io.InputStream;
-import java.net.ContentHandler;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
@@ -40,6 +35,19 @@ import java.util.ArrayList;
  */
 public class SubCategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements View.OnTouchListener {
 
+    public interface onScrollListener {
+
+        boolean fastScrolled();
+
+    }
+
+    public void setOnScrollListner(onScrollListener listener) {
+
+        this.listener = listener;
+
+    }
+
+    private onScrollListener listener;
     Context mContext;
     ArrayList<SubModel> subModel;
     Integer[] titleBackGround = new Integer[1000];
@@ -48,6 +56,8 @@ public class SubCategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     private ImageView refrence;
     private int counter, firstView, secondView, mDoubleTap = 0;
     private float firstX, secondX, firstY, secondY;
+    private String sub_name;
+    private int last_position = 0;
     GestureDetector gestureDetector = new GestureDetector(mContext, new GestureDetector.SimpleOnGestureListener());
 
 
@@ -67,7 +77,7 @@ public class SubCategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         public subCategoryViewHolder(View view) {
             super(view);
 
-            sub_cat = (TextView) view.findViewById(R.id.sub_cat_agency_title);
+            sub_cat = (TextView) view.findViewById(R.id.sub_cat_title);
             sub_image = (CardView) view.findViewById(R.id.relativeLayout);
             sub_title = (TextView) view.findViewById(R.id.sub_news_title);
             sub_abstract = (TextView) view.findViewById(R.id.sub_cat_abstract_text_view);
@@ -83,10 +93,11 @@ public class SubCategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     }
 
 
-    public SubCategoryAdapter(Context context, ArrayList<SubModel> subModel, Integer[] titleBackGround) {
+    public SubCategoryAdapter(Context context, ArrayList<SubModel> subModel, String sub_name) {
 
         mContext = context;
         this.subModel = subModel;
+        this.sub_name = sub_name;
 
     }
 
@@ -102,8 +113,10 @@ public class SubCategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     }
 
+
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, final int position) {
+
 
         final subCategoryViewHolder holder = (subCategoryViewHolder) viewHolder;
 
@@ -127,6 +140,58 @@ public class SubCategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         holder.sub_title.setText(subModel.get(position).getSub_title());
         holder.date_view.setText(subModel.get(position).getDate());
         holder.plusSign.setVisibility(View.INVISIBLE);
+        holder.sub_cat.setText(sub_name);
+
+
+        holder.itemView.addOnAttachStateChangeListener(new View.OnAttachStateChangeListener() {
+            @Override
+            public void onViewAttachedToWindow(View view) {
+
+                if (listener != null) {
+
+                    if (position > last_position && position > 0 && listener.fastScrolled()) {
+                        AnimationSet animationSet = new AnimationSet(mContext, null);
+
+                        TranslateAnimation animation = new TranslateAnimation(0, 0, 250, 0);
+                        animation.setDuration(700);
+
+                        AlphaAnimation alphaAnimation = new AlphaAnimation(0.2f, 1f);
+                        alphaAnimation.setDuration(700);
+
+
+                        ScaleAnimation scaleAnimation = new ScaleAnimation(0f, 1f, 0f, 1f, 0.5f, 0.5f);
+                        scaleAnimation.setDuration(700);
+
+
+                        animationSet.addAnimation(animation);
+                        animationSet.addAnimation(alphaAnimation);
+                        animationSet.addAnimation(scaleAnimation);
+
+                        view.setAnimation(animationSet);
+                        view.startAnimation(animationSet);
+                        last_position = position;
+
+
+                    } else {
+
+                        view.startAnimation(new TranslateAnimation(0, 0, 0, 0));
+                    }
+
+                }
+            }
+
+            @Override
+            public void onViewDetachedFromWindow(View view) {
+
+                last_position = position;
+                view.clearAnimation();
+                view.setAnimation(null);
+                view.startAnimation(new TranslateAnimation(0, 0, 0, 0));
+
+            }
+        });
+
+
 //============================================================================================
 
 
@@ -198,7 +263,6 @@ public class SubCategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     public boolean onTouch(final View view, MotionEvent motionEvent) {
 
 
-
         gestureDetector.setOnDoubleTapListener(new GestureDetector.OnDoubleTapListener() {
             @Override
             public boolean onSingleTapConfirmed(MotionEvent motionEvent) {
@@ -268,13 +332,15 @@ public class SubCategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 //                }
 
 
-
         gestureDetector.onTouchEvent(motionEvent);
         return true;
     }
 
 
 }
+
+
+
 
 
 

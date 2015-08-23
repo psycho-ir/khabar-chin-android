@@ -99,7 +99,7 @@
 
 
             <TextView
-                android:id="@+id/sub_cat_agency_title"
+                android:id="@+id/sub_cat_title"
                 android:layout_width="match_parent"
                 android:gravity="center_horizontal|center_vertical"
                 android:layout_height="40dp"
