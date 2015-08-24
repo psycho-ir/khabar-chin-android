@@ -8,6 +8,7 @@
     android:layout_height="wrap_content"
     android:layoutDirection="ltr"
     android.support.v7.cardview:cardBackgroundColor="@color/white"
+    android.support.v7.cardview:cardCornerRadius="2dp"
     android:orientation="vertical"
     android:padding="10dp"
     android:layout_margin="2dp"
@@ -36,37 +37,38 @@
             >
 
             <RelativeLayout
-                android:layout_width="50dp"
+                android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_gravity="center_horizontal|center_vertical">
+                android:layout_marginBottom="5dp"
+                android:background="@mipmap/khabar_chin">
 
-            <ImageView
-                android:id="@+id/news_likes"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:alpha="0.6"
-                android:layout_marginTop="6dp"
-                android:layout_marginLeft="9dp"
-                android:background="@mipmap/like"
-                 />
+            <!--<ImageView-->
+                <!--android:id="@+id/news_likes"-->
+                <!--android:layout_width="32dp"-->
+                <!--android:layout_height="32dp"-->
+                <!--android:alpha="0.6"-->
+                <!--android:layout_marginTop="6dp"-->
+                <!--android:layout_marginLeft="9dp"-->
+                <!--android:background="@mipmap/like"-->
+                 <!--/>-->
 
 
-            <TextView
-                android:id="@+id/like_counter"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:paddingTop="17dp"
-                android:alpha="0.8"
-                android:background="@mipmap/circular"
-                android:text="+1k"
-                android:gravity="center_horizontal"
-                android:textColor="@color/abc_primary_text_material_light"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
+            <!--<TextView-->
+                <!--android:id="@+id/like_counter"-->
+                <!--android:layout_width="20dp"-->
+                <!--android:layout_height="20dp"-->
+                <!--android:paddingTop="17dp"-->
+                <!--android:alpha="0.8"-->
+                <!--android:background="@mipmap/circular"-->
+                <!--android:text="+1k"-->
+                <!--android:gravity="center_horizontal"-->
+                <!--android:textColor="@color/abc_primary_text_material_light"-->
+                <!--android:layout_alignParentBottom="true"-->
+                <!--android:layout_alignParentRight="true"-->
+                <!--android:layout_alignParentEnd="true"-->
+                <!--android:layout_alignParentTop="true"-->
+                <!--android:layout_alignParentLeft="true"-->
+                <!--android:layout_alignParentStart="true" />-->
 
 
             </RelativeLayout>
@@ -133,6 +135,7 @@
             android:layout_toEndOf="@+id/left_col"
             android.support.v7.cardview:cardCornerRadius="6dp"
             android.support.v7.cardview:cardBackgroundColor="#1e383838"
+            android.support.v7.cardview:cardPreventCornerOverlap="true"
             android:layout_marginBottom="3dp"
             >
 
@@ -234,17 +237,17 @@
         </RelativeLayout>
 
 
-            <ImageView
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:scaleType="fitCenter"
-                android:background="@mipmap/khabar_chin"
-                android:id="@+id/imageView"
-                android:layout_above="@+id/bottom_row"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_alignRight="@+id/left_col"
-                android:layout_alignEnd="@+id/left_col" />
+            <!--<ImageView-->
+                <!--android:layout_width="35dp"-->
+                <!--android:layout_height="35dp"-->
+                <!--android:scaleType="fitCenter"-->
+                <!--android:background="@mipmap/khabar_chin"-->
+                <!--android:id="@+id/imageView"-->
+                <!--android:layout_above="@+id/bottom_row"-->
+                <!--android:layout_alignParentLeft="true"-->
+                <!--android:layout_alignParentStart="true"-->
+                <!--android:layout_alignRight="@+id/left_col"-->
+                <!--android:layout_alignEnd="@+id/left_col" />-->
 
         <RelativeLayout
             android:id="@+id/bottom_row"

@@ -3,15 +3,13 @@ package com.example.ssarabadani.khabarchin_prototype.Adapter;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.support.v7.graphics.Palette;
 import android.support.v7.widget.CardView;
-import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
@@ -33,7 +31,7 @@ import java.util.ArrayList;
 /**
  * Created by Admin on 7/31/2015.
  */
-public class SubCategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements View.OnTouchListener {
+public class SubCategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     public interface onScrollListener {
 
@@ -41,7 +39,7 @@ public class SubCategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     }
 
-    public void setOnScrollListner(onScrollListener listener) {
+    public void setOnScrollListener(onScrollListener listener) {
 
         this.listener = listener;
 
@@ -51,14 +49,10 @@ public class SubCategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     Context mContext;
     ArrayList<SubModel> subModel;
     Integer[] titleBackGround = new Integer[1000];
-    private long first_tap, second_tap;
-    private boolean flag = true, flag2 = true, flag3;
-    private ImageView refrence;
-    private int counter, firstView, secondView, mDoubleTap = 0;
-    private float firstX, secondX, firstY, secondY;
+
     private String sub_name;
     private int last_position = 0;
-    GestureDetector gestureDetector = new GestureDetector(mContext, new GestureDetector.SimpleOnGestureListener());
+//    GestureDetector gestureDetector = new GestureDetector(mContext, new GestureDetector.SimpleOnGestureListener());
 
 
     public class subCategoryViewHolder extends RecyclerView.ViewHolder {
@@ -84,10 +78,15 @@ public class SubCategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             news_image = (ImageView) view.findViewById(R.id.news_image);
             agency_logo = (ImageView) view.findViewById(R.id.agency_logo);
             agency_name = (TextView) view.findViewById(R.id.agency_name);
-            likeCounter = (TextView) view.findViewById(R.id.like_counter);
+//            likeCounter = (TextView) view.findViewById(R.id.like_counter);
             date_view = (TextView) view.findViewById(R.id.date_view);
             plusSign = (ImageView) view.findViewById(R.id.plus_sign);
-            view.setOnTouchListener(SubCategoryAdapter.this);
+//            view.setOnTouchListener(SubCategoryAdapter.this);
+
+            Typeface typeface = Typeface.createFromAsset(mContext.getAssets(), "fonts/BNazanin.ttf");
+            sub_abstract.setTypeface(typeface);
+            sub_title.setTypeface(typeface);
+
 
         }
     }
@@ -110,7 +109,6 @@ public class SubCategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         subCategoryViewHolder NVH = new subCategoryViewHolder(v);
         return NVH;
 
-
     }
 
 
@@ -120,16 +118,14 @@ public class SubCategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
         final subCategoryViewHolder holder = (subCategoryViewHolder) viewHolder;
 
-        refrence = holder.plusSign;
-
         String url = subModel.get(position).getNews_img_address();
         holder.itemView.setTag(position);
 
-        if (subModel.get(position).getLike_counter() > 1000) {
-            holder.likeCounter.setText(String.valueOf(subModel.get(position).getLike_counter() % 1000) + "+k");
-        } else {
-            holder.likeCounter.setText(String.valueOf(subModel.get(position).getLike_counter()));
-        }
+//        if (subModel.get(position).getLike_counter() > 1000) {
+//            holder.likeCounter.setText(String.valueOf(subModel.get(position).getLike_counter() % 1000) + "+k");
+//        } else {
+//            holder.likeCounter.setText(String.valueOf(subModel.get(position).getLike_counter()));
+//        }
 
         Picasso.with(mContext)
                 .load(subModel.get(position).getNews_img_address())
@@ -155,22 +151,19 @@ public class SubCategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                         TranslateAnimation animation = new TranslateAnimation(0, 0, 250, 0);
                         animation.setDuration(700);
 
-                        AlphaAnimation alphaAnimation = new AlphaAnimation(0.2f, 1f);
-                        alphaAnimation.setDuration(700);
-
-
-                        ScaleAnimation scaleAnimation = new ScaleAnimation(0f, 1f, 0f, 1f, 0.5f, 0.5f);
-                        scaleAnimation.setDuration(700);
-
-
                         animationSet.addAnimation(animation);
-                        animationSet.addAnimation(alphaAnimation);
-                        animationSet.addAnimation(scaleAnimation);
 
                         view.setAnimation(animationSet);
                         view.startAnimation(animationSet);
+
                         last_position = position;
 
+//                        AlphaAnimation alphaAnimation = new AlphaAnimation(0.2f, 1f);
+//                        alphaAnimation.setDuration(700);
+//                        ScaleAnimation scaleAnimation = new ScaleAnimation(0f, 1f, 0f, 1f, 0.5f, 0.5f);
+//                        scaleAnimation.setDuration(700);
+//                        animationSet.addAnimation(alphaAnimation);
+//                        animationSet.addAnimation(scaleAnimation);
 
                     } else {
 
@@ -259,84 +252,91 @@ public class SubCategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     }
 
 
-    @Override
-    public boolean onTouch(final View view, MotionEvent motionEvent) {
+/**
+ *
+ *
+ * //next version should have the double tap adder
+ *
+ *
 
+ //    @Override
+ //    public boolean onTouch(final View view, MotionEvent motionEvent) {
+ //
+ //
+ //        gestureDetector.setOnDoubleTapListener(new GestureDetector.OnDoubleTapListener() {
+ //            @Override
+ //            public boolean onSingleTapConfirmed(MotionEvent motionEvent) {
+ //                return false;
+ //            }
+ //
+ //            @Override
+ //            public boolean onDoubleTap(MotionEvent motionEvent) {
+ //
+ //                view.findViewById(R.id.plus_sign).setVisibility(View.VISIBLE);
+ //                AlphaAnimation fadeOut = new AlphaAnimation(1, 0);
+ //                fadeOut.setDuration(1000);
+ //                fadeOut.setFillAfter(true);
+ //                view.findViewById(R.id.plus_sign).setAnimation(fadeOut);
+ //                view.findViewById(R.id.plus_sign).setVisibility(View.INVISIBLE);
+ //                Log.i("boomba", "taped");
+ //                return true;
+ //            }
+ //
+ //            @Override
+ //            public boolean onDoubleTapEvent(MotionEvent motionEvent) {
+ //
+ //                view.findViewById(R.id.plus_sign).setVisibility(View.VISIBLE);
+ //                AlphaAnimation fadeOut = new AlphaAnimation(1, 0);
+ //                fadeOut.setDuration(1000);
+ //                fadeOut.setFillAfter(true);
+ //                view.findViewById(R.id.plus_sign).setAnimation(fadeOut);
+ //                view.findViewById(R.id.plus_sign).setVisibility(View.INVISIBLE);
+ //                Log.i("boomba", "taped");
+ //                return false;
+ //            }
+ //        });
+ //
+ ////        firstX = motionEvent.getX();
+ ////        firstY = motionEvent.getY();
+ ////        first_tap = motionEvent.getDownTime();
+ //
+ //
+ ////            if((first_tap - second_tap)  > 0 && (first_tap - second_tap) < 500 ) {
+ ////
+ ////                counter++;
+ ////
+ ////            }
+ //
+ ////            if (flag) {
+ ////
+ ////                second_tap = first_tap;
+ ////                flag = false;
+ ////                secondY = firstY;
+ ////                secondX = firstX;
+ ////                mDoubleTap = 0;
+ ////            } else if ((first_tap - second_tap) > 0 && (first_tap - second_tap) < 500 && firstX == secondX && firstY == secondY && mDoubleTap == 0) {
+ ////                    view.findViewById(R.id.plus_sign).setVisibility(View.VISIBLE);
+ ////                    AlphaAnimation fadeOut = new AlphaAnimation(1, 0);
+ ////                    fadeOut.setDuration(1000);
+ ////                    fadeOut.setFillAfter(true);
+ ////                    counter++;
+ ////                    Log.i("tap", "taped");
+ ////                    view.findViewById(R.id.plus_sign).setAnimation(fadeOut);
+ ////                    view.findViewById(R.id.plus_sign).setVisibility(View.INVISIBLE);
+ //////                Toast.makeText(mContext, "Double Taped!", Toast.LENGTH_SHORT).show();
+ ////                    mDoubleTap = 1;
+ ////                    flag = true;
+ ////                } else {
+ ////                    flag = true;
+ ////                    mDoubleTap = 1;
+ ////                }
+ //
+ //
+ //        gestureDetector.onTouchEvent(motionEvent);
+ //        return true;
+ //    }
 
-        gestureDetector.setOnDoubleTapListener(new GestureDetector.OnDoubleTapListener() {
-            @Override
-            public boolean onSingleTapConfirmed(MotionEvent motionEvent) {
-                return false;
-            }
-
-            @Override
-            public boolean onDoubleTap(MotionEvent motionEvent) {
-
-                view.findViewById(R.id.plus_sign).setVisibility(View.VISIBLE);
-                AlphaAnimation fadeOut = new AlphaAnimation(1, 0);
-                fadeOut.setDuration(1000);
-                fadeOut.setFillAfter(true);
-                view.findViewById(R.id.plus_sign).setAnimation(fadeOut);
-                view.findViewById(R.id.plus_sign).setVisibility(View.INVISIBLE);
-                Log.i("boomba", "taped");
-                return true;
-            }
-
-            @Override
-            public boolean onDoubleTapEvent(MotionEvent motionEvent) {
-
-                view.findViewById(R.id.plus_sign).setVisibility(View.VISIBLE);
-                AlphaAnimation fadeOut = new AlphaAnimation(1, 0);
-                fadeOut.setDuration(1000);
-                fadeOut.setFillAfter(true);
-                view.findViewById(R.id.plus_sign).setAnimation(fadeOut);
-                view.findViewById(R.id.plus_sign).setVisibility(View.INVISIBLE);
-                Log.i("boomba", "taped");
-                return false;
-            }
-        });
-
-//        firstX = motionEvent.getX();
-//        firstY = motionEvent.getY();
-//        first_tap = motionEvent.getDownTime();
-
-
-//            if((first_tap - second_tap)  > 0 && (first_tap - second_tap) < 500 ) {
-//
-//                counter++;
-//
-//            }
-
-//            if (flag) {
-//
-//                second_tap = first_tap;
-//                flag = false;
-//                secondY = firstY;
-//                secondX = firstX;
-//                mDoubleTap = 0;
-//            } else if ((first_tap - second_tap) > 0 && (first_tap - second_tap) < 500 && firstX == secondX && firstY == secondY && mDoubleTap == 0) {
-//                    view.findViewById(R.id.plus_sign).setVisibility(View.VISIBLE);
-//                    AlphaAnimation fadeOut = new AlphaAnimation(1, 0);
-//                    fadeOut.setDuration(1000);
-//                    fadeOut.setFillAfter(true);
-//                    counter++;
-//                    Log.i("tap", "taped");
-//                    view.findViewById(R.id.plus_sign).setAnimation(fadeOut);
-//                    view.findViewById(R.id.plus_sign).setVisibility(View.INVISIBLE);
-////                Toast.makeText(mContext, "Double Taped!", Toast.LENGTH_SHORT).show();
-//                    mDoubleTap = 1;
-//                    flag = true;
-//                } else {
-//                    flag = true;
-//                    mDoubleTap = 1;
-//                }
-
-
-        gestureDetector.onTouchEvent(motionEvent);
-        return true;
-    }
-
-
+ */
 }
 
 
