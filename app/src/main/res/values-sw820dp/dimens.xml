@@ -1,0 +1,30 @@
+<resources>
+    <!-- Example customization of dimensions originally defined in res/values/dimens.xml
+         (such as screen margins) for screens with more than 820dp of available width. This
+         would include 7" and 10" devices in landscape (~960dp and ~1280dp respectively). -->
+    <dimen name="activity_horizontal_margin">64dp</dimen>
+    <dimen name="page_name_padding">80dp</dimen>
+    <dimen name="toolbar_height">100dp</dimen>
+    <dimen name="page_name_bottom_padding">18dp</dimen>
+    <dimen name="page_name_text_size">15dp</dimen>
+    <dimen name="khabar_chin_logo">25dp</dimen>
+    <dimen name="sub_news_image_height">600dp</dimen>
+    <dimen name="left_col_width">75dp</dimen>
+    <dimen name="sub_title_size">47dp</dimen>
+    <dimen name="sub_abstract_size">42dp</dimen>
+    <dimen name="agency_logo_height">140dp</dimen>
+    <dimen name="sub_cat_title_height">120dp</dimen>
+    <dimen name="agency_name_height">120dp</dimen>
+    <dimen name="khabar_chin_logo_left_col_height">150dp</dimen>
+    <dimen name="left_text_size">28dp</dimen>
+    <dimen name="date_text_height">150dp</dimen>
+    <dimen name="date_text_width">105dp</dimen>
+    <dimen name="date_text_size">36dp</dimen>
+    <dimen name="date_view_height">105dp</dimen>
+    <dimen name="date_view_text_size">30dp</dimen>
+    <dimen name="fab_width">100dp</dimen>
+    <dimen name="fab_height">100dp</dimen>
+    <dimen name="elevation">10dp</dimen>
+
+
+</resources>

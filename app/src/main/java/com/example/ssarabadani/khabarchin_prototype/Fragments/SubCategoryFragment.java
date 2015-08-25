@@ -1,6 +1,8 @@
 package com.example.ssarabadani.khabarchin_prototype.Fragments;
 
 
+import android.content.res.AssetManager;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -44,6 +46,8 @@ public class SubCategoryFragment extends Fragment {
     private int currentPage;
     private FloatingActionButton FAB;
 
+    private TextView page_name;
+
     private int previousTotal = 0;
     private boolean loading = true;
     private int visibleThreshold = 5;
@@ -69,6 +73,10 @@ public class SubCategoryFragment extends Fragment {
         llm = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(llm);
         subCategoryAdapter = new SubCategoryAdapter(getActivity(), subModels, bundle.getString("cat_name"));
+
+        page_name = (TextView) getActivity().findViewById(R.id.page_name);
+        page_name.setText(bundle.getString("cat_name"));
+
 
         recyclerView.setAdapter(subCategoryAdapter);
 
@@ -111,7 +119,7 @@ public class SubCategoryFragment extends Fragment {
                 Log.i("woooooooooooooow", String.valueOf(dy) + " items added");
 
 
-                subCategoryAdapter.setOnScrollListner(new SubCategoryAdapter.onScrollListener() {
+                subCategoryAdapter.setOnScrollListener(new SubCategoryAdapter.onScrollListener() {
                     @Override
                     public boolean fastScrolled() {
                         if (dy < 90 && dy > 0) {

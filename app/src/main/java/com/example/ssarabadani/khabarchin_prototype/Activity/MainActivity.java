@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
         Window window = this.getWindow();
         if(Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT){
 
-            window.setStatusBarColor(getResources().getColor(R.color.white));
+            window.setStatusBarColor(getResources().getColor(R.color.red));
 
         }
         mNavigationView = (NavigationView) findViewById(R.id.navigation_view);
@@ -69,13 +69,13 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.drawer_news:
                         fragmentManager.beginTransaction().replace(R.id.main_frame, newsCategoryFragment, "news_category").commit();
                         break;
-                    case R.id.drawer_favorite:
-                        Toast.makeText(getApplicationContext(), "شما روی گزینه " + menuItem.getTitle().toString() + " کلیک کرده اید ", Toast.LENGTH_SHORT).show();
-                        break;
-                    case R.id.drawer_login:
-                        fragmentManager.beginTransaction().replace(R.id.main_frame, loginFragment, "news_category").commit();
+//                    case R.id.drawer_favorite:
 //                        Toast.makeText(getApplicationContext(), "شما روی گزینه " + menuItem.getTitle().toString() + " کلیک کرده اید ", Toast.LENGTH_SHORT).show();
-                        break;
+//                        break;
+//                    case R.id.drawer_login:
+//                        fragmentManager.beginTransaction().replace(R.id.main_frame, loginFragment, "news_category").commit();
+//                        Toast.makeText(getApplicationContext(), "شما روی گزینه " + menuItem.getTitle().toString() + " کلیک کرده اید ", Toast.LENGTH_SHORT).show();
+//                        break;
                     case R.id.drawer_about:
                         Toast.makeText(getApplicationContext(), "شما روی گزینه " + menuItem.getTitle().toString() + " کلیک کرده اید ", Toast.LENGTH_SHORT).show();
                         break;

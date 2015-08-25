@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -39,7 +40,7 @@ public class NewsCategoryFragment extends Fragment {
     private RecyclerView recyclerView;
     private ArrayList<NewsCategoryModel> newsCategory;
     private CategoryAdapter adapter;
-
+    private TextView page_name;
 
     private RequestQueue queue;
 
@@ -60,6 +61,9 @@ public class NewsCategoryFragment extends Fragment {
         final FragmentManager fragmentManager;
         fragmentManager = getFragmentManager();
         final SubCategoryFragment det_fragment = new SubCategoryFragment();
+        page_name = (TextView) getActivity().findViewById(R.id.page_name);
+        page_name.setText("گروه های خبری");
+
 
         recyclerView = (RecyclerView) view.findViewById(R.id.category_recycler);
         recyclerView.setLayoutManager(llm);

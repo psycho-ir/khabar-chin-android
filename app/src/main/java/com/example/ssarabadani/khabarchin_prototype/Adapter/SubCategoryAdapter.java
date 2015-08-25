@@ -81,6 +81,7 @@ public class SubCategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 //            likeCounter = (TextView) view.findViewById(R.id.like_counter);
             date_view = (TextView) view.findViewById(R.id.date_view);
             plusSign = (ImageView) view.findViewById(R.id.plus_sign);
+
 //            view.setOnTouchListener(SubCategoryAdapter.this);
 
             Typeface typeface = Typeface.createFromAsset(mContext.getAssets(), "fonts/BNazanin.ttf");
