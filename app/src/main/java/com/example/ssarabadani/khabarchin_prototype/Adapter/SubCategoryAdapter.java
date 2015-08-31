@@ -97,9 +97,13 @@ public class SubCategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
 //            view.setOnTouchListener(SubCategoryAdapter.this);
 
-            Typeface typeface = Typeface.createFromAsset(mContext.getAssets(), "fonts/BNazanin.ttf");
-            sub_abstract.setTypeface(typeface);
-            sub_title.setTypeface(typeface);
+            Typeface typeface_abstract = Typeface.createFromAsset(mContext.getAssets(), "fonts/BNazanin.ttf");
+            sub_abstract.setTypeface(typeface_abstract);
+
+            Typeface typeface_title = Typeface.createFromAsset(mContext.getAssets(), "fonts/BMitra.ttf");
+            sub_title.setTypeface(typeface_title);
+
+            date_view.setTypeface(typeface_abstract);
 
         }
     }

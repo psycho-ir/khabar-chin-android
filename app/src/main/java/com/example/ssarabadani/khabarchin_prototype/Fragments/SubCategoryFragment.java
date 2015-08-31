@@ -110,7 +110,7 @@ public class SubCategoryFragment extends Fragment {
         bundle.putString("url", Constants.DETAIL_URL + subModels.get((int) view.getTag()).getId());
         webViewFrag.setArguments(bundle);
         Log.i("url", Constants.DETAIL_URL + subModels.get((int) view.getTag()).getId());
-        fragmentManager.beginTransaction().replace(R.id.main_frame, webViewFrag, "detail").addToBackStack("c").commit();
+        fragmentManager.beginTransaction().replace(R.id.main_frame, webViewFrag, "detail").addToBackStack("detail").commit();
 
             }
         }));
@@ -142,7 +142,7 @@ public class SubCategoryFragment extends Fragment {
                 subCategoryAdapter.setOnScrollListener(new SubCategoryAdapter.onScrollListener() {
                     @Override
                     public boolean fastScrolled() {
-                        if (dy < 90 && dy > 0) {
+                        if (dy < 70 && dy > 0) {
 
                             return true;
                         } else {

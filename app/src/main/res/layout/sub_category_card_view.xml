@@ -174,8 +174,10 @@
                     android:layout_below="@+id/news_image"
                     android:layout_marginBottom="1dp"
                     android:paddingBottom="5dp"
-                    android:paddingRight="5dp"
+                    android:paddingRight="10dp"
+                    android:paddingLeft="10dp"
                     android:paddingTop="3dp"
+
                     android:text="سفر هیئت وزیره آلمانی به ایران"
                     android:textColor="@color/abc_primary_text_material_light"
                     android:textSize="@dimen/sub_title_size" />
@@ -278,7 +280,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/divider_view"
                 android:paddingBottom="5dp"
-                android:paddingRight="5dp"
+                android:paddingRight="15dp"
                 android:paddingTop="5dp"
                 android:text="در این سفر هیئت آلمانی ضمن تاکید بر همکاری های سیاسی و اقتصادی بر نقش سازنده ایران در امنیت منطقه خاورمیانه تاکید به سزایی داشته و خواستار همکاری های بیشتر شدند......"
                 android:textColor="@color/gray_dark"

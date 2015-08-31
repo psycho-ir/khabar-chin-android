@@ -2,12 +2,14 @@ package com.example.ssarabadani.khabarchin_prototype.Activity;
 
 import android.os.Build;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -38,11 +40,11 @@ public class MainActivity extends AppCompatActivity {
 
 
         fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.main_frame, newsCategoryFragment, "news_category").commit();
+        fragmentManager.beginTransaction().replace(R.id.main_frame, newsCategoryFragment, "news_category").addToBackStack("news_category").commit();
         Window window = this.getWindow();
         if(Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT){
 
-            window.setStatusBarColor(getResources().getColor(R.color.red));
+            window.setStatusBarColor(getResources().getColor(R.color.notification_bar_red));
 
         }
         mNavigationView = (NavigationView) findViewById(R.id.navigation_view);
@@ -67,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
                         fragmentManager.beginTransaction().replace(R.id.main_frame, mainFragment, "main").commit();
                         break;
                     case R.id.drawer_news:
-                        fragmentManager.beginTransaction().replace(R.id.main_frame, newsCategoryFragment, "news_category").commit();
+                        fragmentManager.beginTransaction().replace(R.id.main_frame, newsCategoryFragment, "news_category").addToBackStack("news_category").commit();
                         break;
 //                    case R.id.drawer_favorite:
 //                        Toast.makeText(getApplicationContext(), "شما روی گزینه " + menuItem.getTitle().toString() + " کلیک کرده اید ", Toast.LENGTH_SHORT).show();
@@ -88,7 +90,14 @@ public class MainActivity extends AppCompatActivity {
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer);
 
-        ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, toolbar, R.string.openDrawer, R.string.closeDrawer) {
+        mDrawerLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+        ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, toolbar, R.string.khabar_chin_title,  R.string.khabar_chin_title) {
 
             @Override
             public void onDrawerClosed(View drawerView) {
@@ -113,6 +122,26 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+
+    @Override
+    public void onBackPressed() {
+
+
+        Fragment fragment = fragmentManager.findFragmentByTag(fragmentManager.getBackStackEntryAt(fragmentManager.getBackStackEntryCount() - 1).getName());
+
+        if(mDrawerLayout.isDrawerOpen(Gravity.LEFT)) {
+            mDrawerLayout.closeDrawer(Gravity.LEFT);
+        }
+        else {
+            if(!(fragment instanceof NewsCategoryFragment)) {
+                fragmentManager.popBackStack();
+            }
+            else {
+                finish();
+            }
+        }
+
+    }
 
 //
 //    @Override

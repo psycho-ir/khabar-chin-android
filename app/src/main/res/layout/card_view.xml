@@ -18,11 +18,13 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:gravity="center"
+        android:textSize="16dp"
+        android:text="dasdasdadasd"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/image_card"
-        android:background="@color/pink"
-        android:textColor="#111111" />
+        android:background="@color/red_light"
+        android:textColor="@color/white" />
 
 
 </RelativeLayout>
