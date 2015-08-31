@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         fragmentManager = getSupportFragmentManager();
-
+        fragmentManager.beginTransaction().replace(R.id.main_frame, newsCategoryFragment, "news_category").commit();
         Window window = this.getWindow();
         if(Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT){
 

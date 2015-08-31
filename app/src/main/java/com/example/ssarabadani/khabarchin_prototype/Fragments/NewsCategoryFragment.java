@@ -69,11 +69,6 @@ public class NewsCategoryFragment extends Fragment {
         recyclerView.setLayoutManager(llm);
         recyclerView.setHasFixedSize(true);
 
-//        for (int i = 0; i < 10; i++) {
-//
-//            dataModels.add(new DataModel(" ??? ????? " + i, R.mipmap.khabar_chin));
-//
-//        }
 
         newsCategory = new ArrayList<>();
         adapter = new CategoryAdapter(getActivity(), newsCategory);
@@ -87,6 +82,7 @@ public class NewsCategoryFragment extends Fragment {
                 Bundle bundle = new Bundle();
                 bundle.putString("category", newsCategory.get(position).getPk());
                 bundle.putString("cat_name", newsCategory.get(position).getTitle());
+
                 det_fragment.setArguments(bundle);
                 fragmentManager.beginTransaction().replace(R.id.main_frame, det_fragment, "sub_category").addToBackStack("sub_category_news").commit();
                 Toast.makeText(getActivity(), "item selected: " + newsCategory.get(position).getTitle(), Toast.LENGTH_SHORT).show();

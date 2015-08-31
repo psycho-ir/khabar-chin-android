@@ -3,7 +3,8 @@
     package="com.example.ssarabadani.khabarchin_prototype" >
 
     <uses-permission android:name="android.permission.INTERNET" />
-
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
 
     <application
         android:supportsRtl="true"

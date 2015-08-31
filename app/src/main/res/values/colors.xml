@@ -10,7 +10,7 @@
     <color name="date_gray">#52bababa</color>
     <color name="wrapper_gray">#8c8e8e8e</color>
     <color name="green">#229944</color>
-    <color name="button_red">#d11f18</color>
-
+    <color name="button_red">#ff2b20</color>
+    <color name="notification_bar_red">#d11f18</color>
 
 </resources>

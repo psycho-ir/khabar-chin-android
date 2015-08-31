@@ -6,6 +6,7 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -23,8 +24,10 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.ssarabadani.khabarchin_prototype.Adapter.SubCategoryAdapter;
+import com.example.ssarabadani.khabarchin_prototype.Constants.Constants;
 import com.example.ssarabadani.khabarchin_prototype.Model.SubModel;
 import com.example.ssarabadani.khabarchin_prototype.R;
+import com.example.ssarabadani.khabarchin_prototype.RecyclerItemClickListener;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -45,6 +48,7 @@ public class SubCategoryFragment extends Fragment {
     private int param;
     private int currentPage;
     private FloatingActionButton FAB;
+    private WebDetailView webViewFrag = new WebDetailView();
 
     private TextView page_name;
 
@@ -52,8 +56,9 @@ public class SubCategoryFragment extends Fragment {
     private boolean loading = true;
     private int visibleThreshold = 5;
     int firstVisibleItem, visibleItemCount, totalItemCount, lastItemVisible, heightCounter = 0;
-
+    private FragmentManager fragmentManager;
     boolean state = true;
+
 
     public SubCategoryFragment() {
         // Required empty public constructor
@@ -94,6 +99,21 @@ public class SubCategoryFragment extends Fragment {
 
             }
         });
+
+
+        recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getActivity(), new RecyclerItemClickListener.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+        fragmentManager = getFragmentManager();
+
+        Bundle bundle = new Bundle();
+        bundle.putString("url", Constants.DETAIL_URL + subModels.get((int) view.getTag()).getId());
+        webViewFrag.setArguments(bundle);
+        Log.i("url", Constants.DETAIL_URL + subModels.get((int) view.getTag()).getId());
+        fragmentManager.beginTransaction().replace(R.id.main_frame, webViewFrag, "detail").addToBackStack("c").commit();
+
+            }
+        }));
 
 
         param = 5;
@@ -201,7 +221,7 @@ public class SubCategoryFragment extends Fragment {
                             try {
                                 JSONObject jsonObject = response.getJSONObject(i);
                                 subModels.add(new SubModel(jsonObject.getString("title"), jsonObject.getString("agency"), jsonObject.getString("abstract"), jsonObject.getInt("likes"),
-                                        jsonObject.getString("img_address"), R.mipmap.khabar_chin, jsonObject.getString("date")));
+                                        jsonObject.getString("img_address"), R.mipmap.khabar_chin, jsonObject.getString("date"), jsonObject.getInt("id")));
                             } catch (JSONException e) {
 
                                 e.printStackTrace();
