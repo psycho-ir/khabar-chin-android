@@ -144,7 +144,7 @@ public class SubCategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 .load(subModel.get(position).getNews_img_address())
                 .into(holder.news_image);
         holder.agency_logo.setImageResource(R.mipmap.khabar_chin);
-        holder.agency_name.setText(subModel.get(position).getAgency_name());
+        holder.agency_name.setText(subNewsSwitcher(subModel.get(position).getAgency_name()));
         holder.sub_abstract.setText(subModel.get(position).getNews_abstract());
         holder.sub_title.setText(subModel.get(position).getSub_title());
         holder.date_view.setText(subModel.get(position).getDate());
@@ -264,89 +264,107 @@ public class SubCategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         return subModel.size();
     }
 
+    private String subNewsSwitcher(String agencyName) {
 
-    /**
-     * //next version should have the double tap adder
-     * <p/>
-     * <p/>
-     * <p/>
-     * //    @Override
-     * //    public boolean onTouch(final View view, MotionEvent motionEvent) {
-     * //
-     * //
-     * //        gestureDetector.setOnDoubleTapListener(new GestureDetector.OnDoubleTapListener() {
-     * //            @Override
-     * //            public boolean onSingleTapConfirmed(MotionEvent motionEvent) {
-     * //                return false;
-     * //            }
-     * //
-     * //            @Override
-     * //            public boolean onDoubleTap(MotionEvent motionEvent) {
-     * //
-     * //                view.findViewById(R.id.plus_sign).setVisibility(View.VISIBLE);
-     * //                AlphaAnimation fadeOut = new AlphaAnimation(1, 0);
-     * //                fadeOut.setDuration(1000);
-     * //                fadeOut.setFillAfter(true);
-     * //                view.findViewById(R.id.plus_sign).setAnimation(fadeOut);
-     * //                view.findViewById(R.id.plus_sign).setVisibility(View.INVISIBLE);
-     * //                Log.i("boomba", "taped");
-     * //                return true;
-     * //            }
-     * //
-     * //            @Override
-     * //            public boolean onDoubleTapEvent(MotionEvent motionEvent) {
-     * //
-     * //                view.findViewById(R.id.plus_sign).setVisibility(View.VISIBLE);
-     * //                AlphaAnimation fadeOut = new AlphaAnimation(1, 0);
-     * //                fadeOut.setDuration(1000);
-     * //                fadeOut.setFillAfter(true);
-     * //                view.findViewById(R.id.plus_sign).setAnimation(fadeOut);
-     * //                view.findViewById(R.id.plus_sign).setVisibility(View.INVISIBLE);
-     * //                Log.i("boomba", "taped");
-     * //                return false;
-     * //            }
-     * //        });
-     * //
-     * ////        firstX = motionEvent.getX();
-     * ////        firstY = motionEvent.getY();
-     * ////        first_tap = motionEvent.getDownTime();
-     * //
-     * //
-     * ////            if((first_tap - second_tap)  > 0 && (first_tap - second_tap) < 500 ) {
-     * ////
-     * ////                counter++;
-     * ////
-     * ////            }
-     * //
-     * ////            if (flag) {
-     * ////
-     * ////                second_tap = first_tap;
-     * ////                flag = false;
-     * ////                secondY = firstY;
-     * ////                secondX = firstX;
-     * ////                mDoubleTap = 0;
-     * ////            } else if ((first_tap - second_tap) > 0 && (first_tap - second_tap) < 500 && firstX == secondX && firstY == secondY && mDoubleTap == 0) {
-     * ////                    view.findViewById(R.id.plus_sign).setVisibility(View.VISIBLE);
-     * ////                    AlphaAnimation fadeOut = new AlphaAnimation(1, 0);
-     * ////                    fadeOut.setDuration(1000);
-     * ////                    fadeOut.setFillAfter(true);
-     * ////                    counter++;
-     * ////                    Log.i("tap", "taped");
-     * ////                    view.findViewById(R.id.plus_sign).setAnimation(fadeOut);
-     * ////                    view.findViewById(R.id.plus_sign).setVisibility(View.INVISIBLE);
-     * //////                Toast.makeText(mContext, "Double Taped!", Toast.LENGTH_SHORT).show();
-     * ////                    mDoubleTap = 1;
-     * ////                    flag = true;
-     * ////                } else {
-     * ////                    flag = true;
-     * ////                    mDoubleTap = 1;
-     * ////                }
-     * //
-     * //
-     * //        gestureDetector.onTouchEvent(motionEvent);
-     * //        return true;
-     * //    }
-     */
+        switch (agencyName) {
+
+            case "tabnak":
+                return "تابناک";
+            case "bartarinha":
+                return "برترین ها";
+            case "irna":
+                return "ایرنا";
+            case "yjc":
+                return "خبرنگاران";
+            case "isna":
+                return "ایسنا";
+            default:
+                return null;
+        }
+
+
+        /**
+         * //next version should have the double tap adder
+         * <p/>
+         * <p/>
+         * <p/>
+         * //    @Override
+         * //    public boolean onTouch(final View view, MotionEvent motionEvent) {
+         * //
+         * //
+         * //        gestureDetector.setOnDoubleTapListener(new GestureDetector.OnDoubleTapListener() {
+         * //            @Override
+         * //            public boolean onSingleTapConfirmed(MotionEvent motionEvent) {
+         * //                return false;
+         * //            }
+         * //
+         * //            @Override
+         * //            public boolean onDoubleTap(MotionEvent motionEvent) {
+         * //
+         * //                view.findViewById(R.id.plus_sign).setVisibility(View.VISIBLE);
+         * //                AlphaAnimation fadeOut = new AlphaAnimation(1, 0);
+         * //                fadeOut.setDuration(1000);
+         * //                fadeOut.setFillAfter(true);
+         * //                view.findViewById(R.id.plus_sign).setAnimation(fadeOut);
+         * //                view.findViewById(R.id.plus_sign).setVisibility(View.INVISIBLE);
+         * //                Log.i("boomba", "taped");
+         * //                return true;
+         * //            }
+         * //
+         * //            @Override
+         * //            public boolean onDoubleTapEvent(MotionEvent motionEvent) {
+         * //
+         * //                view.findViewById(R.id.plus_sign).setVisibility(View.VISIBLE);
+         * //                AlphaAnimation fadeOut = new AlphaAnimation(1, 0);
+         * //                fadeOut.setDuration(1000);
+         * //                fadeOut.setFillAfter(true);
+         * //                view.findViewById(R.id.plus_sign).setAnimation(fadeOut);
+         * //                view.findViewById(R.id.plus_sign).setVisibility(View.INVISIBLE);
+         * //                Log.i("boomba", "taped");
+         * //                return false;
+         * //            }
+         * //        });
+         * //
+         * ////        firstX = motionEvent.getX();
+         * ////        firstY = motionEvent.getY();
+         * ////        first_tap = motionEvent.getDownTime();
+         * //
+         * //
+         * ////            if((first_tap - second_tap)  > 0 && (first_tap - second_tap) < 500 ) {
+         * ////
+         * ////                counter++;
+         * ////
+         * ////            }
+         * //
+         * ////            if (flag) {
+         * ////
+         * ////                second_tap = first_tap;
+         * ////                flag = false;
+         * ////                secondY = firstY;
+         * ////                secondX = firstX;
+         * ////                mDoubleTap = 0;
+         * ////            } else if ((first_tap - second_tap) > 0 && (first_tap - second_tap) < 500 && firstX == secondX && firstY == secondY && mDoubleTap == 0) {
+         * ////                    view.findViewById(R.id.plus_sign).setVisibility(View.VISIBLE);
+         * ////                    AlphaAnimation fadeOut = new AlphaAnimation(1, 0);
+         * ////                    fadeOut.setDuration(1000);
+         * ////                    fadeOut.setFillAfter(true);
+         * ////                    counter++;
+         * ////                    Log.i("tap", "taped");
+         * ////                    view.findViewById(R.id.plus_sign).setAnimation(fadeOut);
+         * ////                    view.findViewById(R.id.plus_sign).setVisibility(View.INVISIBLE);
+         * //////                Toast.makeText(mContext, "Double Taped!", Toast.LENGTH_SHORT).show();
+         * ////                    mDoubleTap = 1;
+         * ////                    flag = true;
+         * ////                } else {
+         * ////                    flag = true;
+         * ////                    mDoubleTap = 1;
+         * ////                }
+         * //
+         * //
+         * //        gestureDetector.onTouchEvent(motionEvent);
+         * //        return true;
+         * //    }
+         */
 
 
 //    @Override
@@ -360,6 +378,7 @@ public class SubCategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 //
 //    }
 
+    }
 }
 
 
