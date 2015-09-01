@@ -2,6 +2,7 @@ package com.example.ssarabadani.khabarchin_prototype.Activity;
 
 import android.os.Build;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
@@ -12,6 +13,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Toast;
 
@@ -31,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
     NewsCategoryFragment newsCategoryFragment = new NewsCategoryFragment();
     LoginFragment loginFragment = new LoginFragment();
     FragmentManager fragmentManager;
+    private ViewGroup mainLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +41,17 @@ public class MainActivity extends AppCompatActivity {
         QueueInstance.prepare(this);
         setContentView(R.layout.activity_main);
 
+        mainLayout = (ViewGroup)findViewById(R.id.main_layout);
+
+        Bundle bundle = getIntent().getExtras();
+        Boolean state = bundle.getBoolean("state");
+
+        if(state){
+
+            Snackbar.make(mainLayout, "خوش آمدید", Snackbar.LENGTH_SHORT).show();
+            state = false;
+
+        }
 
         fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.main_frame, newsCategoryFragment, "news_category").addToBackStack("news_category").commit();
@@ -47,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
             window.setStatusBarColor(getResources().getColor(R.color.notification_bar_red));
 
         }
+
         mNavigationView = (NavigationView) findViewById(R.id.navigation_view);
 
         toolbar = (Toolbar) findViewById(R.id.app_toolbar);

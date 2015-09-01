@@ -32,13 +32,13 @@ public class Splash extends Activity {
         setContentView(R.layout.splash);
         RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
 
-        final ViewGroup splash = (ViewGroup)findViewById(R.id.splash);
-        StringRequest jsonArrayRequest = new StringRequest(Request.Method.GET, "http://www.google.com",  new Response.Listener<String>() {
+        final ViewGroup splash = (ViewGroup) findViewById(R.id.splash);
+        StringRequest jsonArrayRequest = new StringRequest(Request.Method.GET, "http://www.google.com", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
 
-                Toast.makeText(Splash.this, "خوش آمدید", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(Splash.this, MainActivity.class);
+                intent.putExtra("state", true);
                 startActivity(intent);
                 finish();
             }
@@ -46,7 +46,7 @@ public class Splash extends Activity {
             @Override
             public void onErrorResponse(VolleyError error) {
 
-                Snackbar.make(splash , "متاسفانه یا اینترنت نداری یا خیلی کنده!", Snackbar.LENGTH_SHORT).show();
+                Snackbar.make(splash, "متاسفانه یا اینترنت نداری یا خیلی کنده!", Snackbar.LENGTH_SHORT).show();
                 finish();
             }
 

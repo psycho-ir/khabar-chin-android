@@ -85,7 +85,6 @@ public class NewsCategoryFragment extends Fragment {
 
                 det_fragment.setArguments(bundle);
                 fragmentManager.beginTransaction().replace(R.id.main_frame, det_fragment, "sub_category").addToBackStack("sub_category_news").commit();
-                Toast.makeText(getActivity(), "item selected: " + newsCategory.get(position).getTitle(), Toast.LENGTH_SHORT).show();
             }
         }));
 
