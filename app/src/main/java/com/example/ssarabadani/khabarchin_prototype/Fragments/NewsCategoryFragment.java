@@ -12,7 +12,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -21,6 +20,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.ssarabadani.khabarchin_prototype.Adapter.CategoryAdapter;
+import com.example.ssarabadani.khabarchin_prototype.Constants.Constants;
 import com.example.ssarabadani.khabarchin_prototype.Model.NewsCategoryModel;
 import com.example.ssarabadani.khabarchin_prototype.R;
 import com.example.ssarabadani.khabarchin_prototype.RecyclerItemClickListener;
@@ -97,7 +97,7 @@ public class NewsCategoryFragment extends Fragment {
         queue = Volley.newRequestQueue(getActivity());
 
         JsonArrayRequest objectRequest = new JsonArrayRequest(Request.Method.GET,
-                "http://khabar-chin.com/rest/all_categories/",
+                Constants.ALL_CATEGORIES_URL,
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
