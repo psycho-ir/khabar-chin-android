@@ -104,13 +104,13 @@ public class SubCategoryFragment extends Fragment {
         recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getActivity(), new RecyclerItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-        fragmentManager = getFragmentManager();
+                fragmentManager = getFragmentManager();
 
-        Bundle bundle = new Bundle();
-        bundle.putString("url", Constants.DETAIL_URL + subModels.get((int) view.getTag()).getId());
-        webViewFrag.setArguments(bundle);
-        Log.i("url", Constants.DETAIL_URL + subModels.get((int) view.getTag()).getId());
-        fragmentManager.beginTransaction().replace(R.id.main_frame, webViewFrag, "detail").addToBackStack("detail").commit();
+                Bundle bundle = new Bundle();
+                bundle.putString("url", Constants.DETAIL_URL + subModels.get((int) view.getTag()).getId());
+                webViewFrag.setArguments(bundle);
+                Log.i("url", Constants.DETAIL_URL + subModels.get((int) view.getTag()).getId());
+                fragmentManager.beginTransaction().replace(R.id.main_frame, webViewFrag, "detail").addToBackStack("detail").commit();
 
             }
         }));
@@ -207,7 +207,7 @@ public class SubCategoryFragment extends Fragment {
     private ArrayList<SubModel> volleyRequestMaker(String categoryName, int currentPage, int size) {
 
         RequestQueue queue = Volley.newRequestQueue(getActivity());
-        String Url = "http://khabar-chin.com/rest/important/?categories=" + categoryName + "&page_number=" + String.valueOf(currentPage) + "&size=" + String.valueOf(size);
+        String Url = Constants.IMPORTANT_NEWS_URL + "?categories=" + categoryName + "&page_number=" + String.valueOf(currentPage) + "&size=" + String.valueOf(size);
 
 
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, Url,

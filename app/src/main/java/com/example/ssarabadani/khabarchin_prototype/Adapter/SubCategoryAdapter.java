@@ -99,11 +99,12 @@ public class SubCategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
             Typeface typeface_abstract = Typeface.createFromAsset(mContext.getAssets(), "fonts/BNazanin.ttf");
             sub_abstract.setTypeface(typeface_abstract);
+            date_view.setTypeface(typeface_abstract);
 
             Typeface typeface_title = Typeface.createFromAsset(mContext.getAssets(), "fonts/BMitra.ttf");
             sub_title.setTypeface(typeface_title);
-
-            date_view.setTypeface(typeface_abstract);
+            agency_name.setTypeface(typeface_title);
+            sub_cat.setTypeface(typeface_title);
 
         }
     }
@@ -147,7 +148,7 @@ public class SubCategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         Picasso.with(mContext)
                 .load(subModel.get(position).getNews_img_address())
                 .into(holder.news_image);
-        holder.agency_logo.setImageResource(R.mipmap.khabar_chin);
+        holder.agency_logo.setImageResource(subNewsImageSwitcher(subModel.get(position).getAgency_name()));
         holder.agency_name.setText(subNewsSwitcher(subModel.get(position).getAgency_name()));
         holder.sub_abstract.setText(subModel.get(position).getNews_abstract());
         holder.sub_title.setText(subModel.get(position).getSub_title());
@@ -282,10 +283,42 @@ public class SubCategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 return "خبرنگاران";
             case "isna":
                 return "ایسنا";
+            case "zoomit":
+                return "زومیت";
+            case "fars":
+                return "فارس";
+            case "mashregh":
+                return "مشرق";
             default:
                 return null;
         }
+    }
 
+    private int subNewsImageSwitcher(String agencyName) {
+
+
+        switch (agencyName) {
+
+            case "tabnak":
+                return R.drawable.tabnak;
+            case "bartarinha":
+                return R.drawable.bartarinha;
+            case "irna":
+                return R.drawable.irna;
+            case "yjc":
+                return R.drawable.yjc;
+            case "isna":
+                return R.drawable.isna;
+            case "zoomit":
+                return R.drawable.zoomit;
+            case "fars":
+                return R.drawable.fars;
+            case "mashregh":
+                return R.drawable.mashregh;
+            default:
+                return R.mipmap.khabar_chin;
+
+        }
 
         /**
          * //next version should have the double tap adder

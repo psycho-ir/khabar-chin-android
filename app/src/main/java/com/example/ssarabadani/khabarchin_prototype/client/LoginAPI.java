@@ -8,6 +8,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.example.ssarabadani.khabarchin_prototype.Constants.Constants;
 import com.example.ssarabadani.khabarchin_prototype.dto.LoginData;
 
 import java.util.HashMap;
@@ -24,7 +25,7 @@ public final class LoginAPI {
 
     public void login(final LoginData loginData, final Handler successHandler, final Handler errorHandler) {
 
-        StringRequest request = new StringRequest(Request.Method.POST, "http://khabar-chin.com/rest/login/",
+        StringRequest request = new StringRequest(Request.Method.POST, Constants.LOGIN_URL,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {

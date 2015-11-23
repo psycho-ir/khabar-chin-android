@@ -12,12 +12,21 @@ import android.webkit.WebViewClient;
 
 import com.example.ssarabadani.khabarchin_prototype.R;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * A simple {@link Fragment} subclass.
  */
 public class WebDetailView extends Fragment {
 
     private WebView webView;
+    private static Map<String,String> HEADERS = new HashMap<String,String>();
+
+    static {
+        HEADERS.put("X-FROM", "MOBILE-APP");
+    }
+
 
     public WebDetailView() {
         // Required empty public constructor
@@ -44,8 +53,7 @@ public class WebDetailView extends Fragment {
         webView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
         webView.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
         webView.getSettings().setUseWideViewPort(true);
-
-        webView.loadUrl(URL);
+        webView.loadUrl(URL, HEADERS);
 
         webView.setWebViewClient(new mBrowser());
 
