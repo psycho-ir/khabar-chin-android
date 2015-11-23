@@ -19,7 +19,16 @@ import com.example.ssarabadani.khabarchin_prototype.Fragments.LoginFragment;
 import com.example.ssarabadani.khabarchin_prototype.Fragments.MainPageFragment;
 import com.example.ssarabadani.khabarchin_prototype.Fragments.NewsCategoryFragment;
 import com.example.ssarabadani.khabarchin_prototype.R;
+import com.example.ssarabadani.khabarchin_prototype.client.Handler;
 import com.example.ssarabadani.khabarchin_prototype.client.QueueInstance;
+import com.example.ssarabadani.khabarchin_prototype.client.UserAPI;
+import com.example.ssarabadani.khabarchin_prototype.dto.AcceptedData;
+import com.example.ssarabadani.khabarchin_prototype.dto.AcceptedResultData;
+import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.json.GsonHttpMessageConverter;
+import org.springframework.web.client.RestTemplate;
+
+import java.util.Arrays;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -38,11 +47,37 @@ public class MainActivity extends AppCompatActivity {
         QueueInstance.prepare(this);
         setContentView(R.layout.activity_main);
 
+//        // spring android sample
+//        RestTemplate template = new RestTemplate();
+//        String isAcceptedUrl = "http://phoneservice.fanavard.com/Service.svc/IsAccepted";
+//        AcceptedData data = new AcceptedData();
+//        data.Username = "soroosh";
+//        GsonHttpMessageConverter gsonHttpMessageConverter = new GsonHttpMessageConverter();
+//        template.getMessageConverters().add(gsonHttpMessageConverter);
+//        AcceptedResultData resultData = template.postForObject(isAcceptedUrl, data, AcceptedResultData.class);
+//        System.out.println(resultData);
+//
+//        //end of spring android sample
+
+        UserAPI userAPI = new UserAPI();
+        userAPI.isUsernameAccepted("soroosh", new Handler() {
+            @Override
+            public void handle() {
+                System.out.println("handled");
+            }
+
+        }, new Handler() {
+            @Override
+            public void handle() {
+                System.out.println("Error");
+            }
+        });
+
 
         fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.main_frame, newsCategoryFragment, "news_category").addToBackStack("news_category").commit();
         Window window = this.getWindow();
-        if(Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT){
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT) {
 
             window.setStatusBarColor(getResources().getColor(R.color.notification_bar_red));
 
@@ -97,7 +132,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, toolbar, R.string.khabar_chin_title,  R.string.khabar_chin_title) {
+        ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, toolbar, R.string.khabar_chin_title, R.string.khabar_chin_title) {
 
             @Override
             public void onDrawerClosed(View drawerView) {
@@ -129,14 +164,12 @@ public class MainActivity extends AppCompatActivity {
 
         Fragment fragment = fragmentManager.findFragmentByTag(fragmentManager.getBackStackEntryAt(fragmentManager.getBackStackEntryCount() - 1).getName());
 
-        if(mDrawerLayout.isDrawerOpen(Gravity.LEFT)) {
+        if (mDrawerLayout.isDrawerOpen(Gravity.LEFT)) {
             mDrawerLayout.closeDrawer(Gravity.LEFT);
-        }
-        else {
-            if(!(fragment instanceof NewsCategoryFragment)) {
+        } else {
+            if (!(fragment instanceof NewsCategoryFragment)) {
                 fragmentManager.popBackStack();
-            }
-            else {
+            } else {
                 finish();
             }
         }
